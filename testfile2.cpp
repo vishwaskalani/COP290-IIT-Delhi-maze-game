@@ -4,7 +4,6 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
-#include<SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 #include <bits/stdc++.h>
@@ -117,16 +116,12 @@ class Player1
 		//Shows the player1 on the screen
 		void render();
 
-		int getMap();
-
     private:
 		//The X and Y offsets of the player1
 		int mPosX, mPosY;
 
 		//The velocity of the player1
 		int mVelX, mVelY;
-
-		int mMap;
 
 		//Dot's collision box
 		SDL_Rect mCollider;
@@ -187,11 +182,7 @@ SDL_Renderer* gRenderer = NULL;
 //Scene textures
 LTexture gPlayer1Texture;
 // LTexture gPlayer2Texture;
-//Map textures
 LTexture gmap1Texture;
-LTexture gmap2Texture;
-LTexture gmap3Texture;
-LTexture gmap4Texture;
 
 LTexture::LTexture()
 {
@@ -232,9 +223,8 @@ bool LTexture::loadFromFile( std::string path )
 		{
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
-		else if (path=="map1.png" || path == "map2.png" || path == "map3.png" || path == "map4.png")
+		else if (path=="map1.png")
 		{
-			//Get image dimensions
 			//Get image dimensions
 			mWidth = SCREEN_WIDTH;
 			mHeight = SCREEN_HEIGHT;
@@ -255,42 +245,42 @@ bool LTexture::loadFromFile( std::string path )
 	return mTexture != NULL;
 }
 
-// #if defined(SDL_TTF_MAJOR_VERSION)
-// bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
-// {
-// 	//Get rid of preexisting texture
-// 	free();
+#if defined(SDL_TTF_MAJOR_VERSION)
+bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
+{
+	//Get rid of preexisting texture
+	free();
 
-// 	//Render text surface
-// 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
-// 	if( textSurface != NULL )
-// 	{
-// 		//Create texture from surface pixels
-//         mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
-// 		if( mTexture == NULL )
-// 		{
-// 			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
-// 		}
-// 		else
-// 		{
-// 			//Get image dimensions
-// 			mWidth = textSurface->w;
-// 			mHeight = textSurface->h;
-// 		}
+	//Render text surface
+	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
+	if( textSurface != NULL )
+	{
+		//Create texture from surface pixels
+        mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
+		if( mTexture == NULL )
+		{
+			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+		}
+		else
+		{
+			//Get image dimensions
+			mWidth = textSurface->w;
+			mHeight = textSurface->h;
+		}
 
-// 		//Get rid of old surface
-// 		SDL_FreeSurface( textSurface );
-// 	}
-// 	else
-// 	{
-// 		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
-// 	}
+		//Get rid of old surface
+		SDL_FreeSurface( textSurface );
+	}
+	else
+	{
+		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+	}
 
 	
-// 	//Return success
-// 	return mTexture != NULL;
-// }
-// #endif
+	//Return success
+	return mTexture != NULL;
+}
+#endif
 
 void LTexture::free()
 {
@@ -362,8 +352,6 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-
-	mMap = 3;
 }
 // Player2::Player2()
 // {
@@ -382,29 +370,8 @@ Player1::Player1()
 
 void Player1::handleEvent( SDL_Event& e )
 {
-
-	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 && (abs(mPosX - ((409*10)/7)) < 5) && (abs(mPosY - (409*10)/7)) < 5)
-
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY += PLAYER1_VEL; break;
-            case SDLK_DOWN: mPosY = 0; mVelY = 0; break;
-            case SDLK_LEFT: mVelX = 0; break;
-            case SDLK_RIGHT: mVelX = 0; break;
-			std::cout<<"hello"<<std::endl;
-        }
-
-	else if( e.type == SDL_KEYUP && e.key.repeat == 0 && (mPosX > 10) && (mPosY > 10))
-
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY -= PLAYER1_VEL; break;
-            case SDLK_DOWN: mPosY = 0; mVelY = 0; mMap = 1; break;
-            case SDLK_LEFT: mVelX = 0; break;
-            case SDLK_RIGHT: mVelX = 0; break;
-        }
     //If a key was pressed
-	else if( e.type == SDL_KEYDOWN && e.key.repeat == 0)
+	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
         //Adjust the velocity
         switch( e.key.keysym.sym )
@@ -416,7 +383,7 @@ void Player1::handleEvent( SDL_Event& e )
         }
     }
     //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0)
+    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
     {
         //Adjust the velocity
         switch( e.key.keysym.sym )
@@ -427,8 +394,6 @@ void Player1::handleEvent( SDL_Event& e )
             case SDLK_RIGHT: mVelX -= PLAYER1_VEL; break;
         }
     }
-
-
 }
 // void Player2::handleEvent( SDL_Event& e )
 // {
@@ -518,11 +483,6 @@ void Player1::render()
     //Show the player1
 	gPlayer1Texture.render( mPosX, mPosY );
 }
-
-int Player1::getMap()
-{
-	return mMap;
-}
 // void Player2::render()
 // {
 //     //Show the player2
@@ -599,23 +559,7 @@ bool loadMedia()
 	// 	printf( "Failed to load player2 texture!\n" );
 	// 	success = false;
 	// }
-
-	if( !gmap1Texture.loadFromFile( "map2.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
-		success = false;
-	}
-	if( !gmap2Texture.loadFromFile( "map2.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
-		success = false;
-	}
-	if( !gmap3Texture.loadFromFile( "map3.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
-		success = false;
-	}
-	if( !gmap4Texture.loadFromFile( "map4.png" ) )
+	if( !gmap1Texture.loadFromFile( "map1.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
@@ -628,12 +572,8 @@ void close()
 {
 	//Free loaded images
 	gPlayer1Texture.free();
-
 	// gPlayer2Texture.free();
 	gmap1Texture.free();
-	gmap2Texture.free();
-	gmap3Texture.free();
-	gmap4Texture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -796,23 +736,7 @@ int main( int argc, char* args[] )
 				}	
 
 				//Render objects
-				if(player1.getMap() == 1)
-				{
-					gmap1Texture.render( 0, 0 );
-				}
-				else if(player1.getMap() == 2)
-				{
-					gmap2Texture.render( 0, 0 );
-				}
-				else if(player1.getMap() == 3)
-				{
-					gmap3Texture.render( 0, 0 );
-				}
-				else if(player1.getMap() == 4)
-				{
-					gmap4Texture.render( 0, 0 );
-				}
-				
+				gmap1Texture.render( 0, 0 );
 				player1.render();
 				// player2.render();
 
