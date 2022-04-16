@@ -413,7 +413,7 @@ Player1::Player1()
 
 void Player1::handleEvent( SDL_Event& e )
 {
-	// if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && (mPosX < 400) && (mPosY < 500) && (mPosX>300) && (mPosY>400))
+	// if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && (mPosX <= 400) && (mPosY <= 500) && (mPosX>=300) && (mPosY>=400))
 	// {
 	// 	switch( e.key.keysym.sym ){
 	// 		case SDLK_e: mMap = 2; break;
@@ -424,7 +424,7 @@ void Player1::handleEvent( SDL_Event& e )
 	if( e.type == SDL_KEYDOWN)
     {
 		//map1 to minimart
-		if ((mPosX < 400) && (mPosY < 520) && (mPosX>300) && (mPosY>400) && (mMap == 1)){
+		if ((mPosX <= 400) && (mPosY <= 520) && (mPosX>=300) && (mPosY>=400) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 6;
@@ -434,7 +434,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//minimart to map1
-		if ((mPosX >900) && (mPosY < 500) && (mPosY>300) && (mMap == 6)){
+		if ((mPosX >=900) && (mPosY <= 500) && (mPosY>=300) && (mMap == 6)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 1;
@@ -443,8 +443,48 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
+		//map2 to DELHI16
+		if ((mPosX >=680) && (mPosX <= 790) && (mPosY<=100) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 8;
+							mPosX = 754; 
+							mPosY = 572; 
+							break;
+						}
+			}
+		//Delhi 16 to map 2
+		if ((mPosX >=718) && (mPosX <= 790) && (mPosY>=500) && (mMap == 8)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 2;
+							mPosX = 720; 
+							mPosY = 40; 
+							break;
+						}
+			}
+		//map2 to SAC
+		if ((mPosX >=525) && (mPosX <= 590) && (mPosY<=370) && (mPosY>=300) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 9;
+							mPosX = 857; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		//SAC to map 2
+		if ((mPosX >=800) && (mPosY>=500) && (mMap == 9)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 2;
+							mPosX = 540; 
+							mPosY = 327; 
+							break;
+						}
+			}
 		//map 1 to map 2
-		if ((mPosX >550) && (mPosX < 598) &&(mPosY < 600) && (mPosY>540) && (mMap == 1)){
+		if ((mPosX >=550) && (mPosX <= 598) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 2;
@@ -454,7 +494,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map 2 to map 1
-		if ((mPosX >578) && (mPosX < 660) &&(mPosY < 50) && (mPosY>0) && (mMap == 2)){
+		if ((mPosX >=578) && (mPosX <= 660) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 1;
@@ -464,7 +504,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		// map2 to map3
-		if ((mPosX >412) && (mPosX < 461) &&(mPosY < 600) && (mPosY>540) && (mMap == 2)){
+		if ((mPosX >=412) && (mPosX <= 461) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 3;
@@ -473,7 +513,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >592) && (mPosX < 655) &&(mPosY < 600) && (mPosY>540) && (mMap == 2)){
+		if ((mPosX >=592) && (mPosX <= 655) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 3;
@@ -482,7 +522,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >920) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>550) && (mMap == 2)){
+		if ((mPosX >=920) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 3;
@@ -492,25 +532,25 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map 3 to map 2
-		if ((mPosX >427) && (mPosX < 500) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+		if ((mPosX >=427) && (mPosX <= 500) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 2;
-							mPosX = 440; 
+							mPosX = 430; 
 							mPosY = 580; 
 							break;
 						}
 			}
-		if ((mPosX >610) && (mPosX < 680) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+		if ((mPosX >=610) && (mPosX <= 680) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 2;
-							mPosX = 617; 
+							mPosX = 610; 
 							mPosY = 580; 
 							break;
 						}
 			}
-		if ((mPosX >928) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+		if ((mPosX >=928) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 2;
@@ -520,7 +560,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map 3 to map 4
-		if ((mPosX >420) && (mPosX < 496) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+		if ((mPosX >=420) && (mPosX <= 496) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 4;
@@ -529,7 +569,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >635) && (mPosX < 723) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+		if ((mPosX >=635) && (mPosX <= 723) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 4;
@@ -538,7 +578,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >920) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+		if ((mPosX >=920) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 4;
@@ -548,7 +588,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map 4 to map 3
-		if ((mPosX >400) && (mPosX < 463) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+		if ((mPosX >=400) && (mPosX <= 463) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 3;
@@ -557,7 +597,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >510) && (mPosX < 600) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+		if ((mPosX >=510) && (mPosX <= 600) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 3;
@@ -566,7 +606,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >918) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+		if ((mPosX >=918) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 3;
@@ -576,7 +616,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map4 to map5
-		if ((mPosX >467) && (mPosX < 545) &&(mPosY < 600) && (mPosY>550) && (mMap == 4)){
+		if ((mPosX >=467) && (mPosX <= 545) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 5;
@@ -585,7 +625,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >720) && (mPosX < 830) &&(mPosY < 600) && (mPosY>550) && (mMap == 4)){
+		if ((mPosX >=720) && (mPosX <= 830) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 5;
@@ -594,7 +634,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >900) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>547) && (mMap == 4)){
+		if ((mPosX >=900) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=547) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
 							mMap = 5;
@@ -604,7 +644,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map 5 to 4
-		if ((mPosX >440) && (mPosX < 510) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+		if ((mPosX >=440) && (mPosX <= 510) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 4;
@@ -613,7 +653,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >684) && (mPosX < 761) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+		if ((mPosX >=684) && (mPosX <= 761) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 4;
@@ -622,7 +662,7 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
-		if ((mPosX >900) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+		if ((mPosX >=900) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 4;
@@ -1063,22 +1103,58 @@ std::vector<SDL_Rect> Player1::get_walls(){
 	else if(mMap==2){
 		//St the wall
 		std::vector<SDL_Rect> wall_vec;
-		SDL_Rect wall1 = wall_form(1,1,418,26);
+		SDL_Rect wall1 = wall_form(1,0,418,22);
 		wall_vec.push_back(wall1);
-		SDL_Rect wall2 = wall_form(444,2,700,28);
+		SDL_Rect wall2 = wall_form(444,0,700,24);
 		wall_vec.push_back(wall2);
-		SDL_Rect wall3 = wall_form(2,32,24,258);
+		SDL_Rect wall3 = wall_form(0,27,24,221);
 		wall_vec.push_back(wall3);
-		SDL_Rect wall4 = wall_form(1,267,7,488);
+		SDL_Rect wall4 = wall_form(0,221,197,420);
 		wall_vec.push_back(wall4);
-		SDL_Rect wall5 = wall_form(46,49,197,278);
+		SDL_Rect wall5 = wall_form(46,42,197,238);
 		wall_vec.push_back(wall5);
-		SDL_Rect wall6 = wall_form(28,281,196,335);
+		SDL_Rect wall6 = wall_form(204,294,231,420);
 		wall_vec.push_back(wall6);
-		SDL_Rect wall7 = wall_form(28,340,239,376);
+		SDL_Rect wall7 = wall_form(244,328,300,420);
 		wall_vec.push_back(wall7);
-		SDL_Rect wall8 = wall_form(28,376,297,487);
+		SDL_Rect wall8 = wall_form(215,43,240,271);
 		wall_vec.push_back(wall8);
+		SDL_Rect wall9 = wall_form(256,40,340,306);
+		wall_vec.push_back(wall9);
+		SDL_Rect wall10 = wall_form(340,149,376,306);
+		wall_vec.push_back(wall10);
+		SDL_Rect wall11 = wall_form(376,251,425,306);
+		wall_vec.push_back(wall11);
+		SDL_Rect wall12 = wall_form(397,180,425,251);
+		wall_vec.push_back(wall12);
+		SDL_Rect wall13 = wall_form(316,329,425,420);
+		wall_vec.push_back(wall13);
+		SDL_Rect wall14 = wall_form(357,42,425,133);
+		wall_vec.push_back(wall14);
+		SDL_Rect wall15 = wall_form(403,133,425,153);
+		wall_vec.push_back(wall15);
+		SDL_Rect wall16 = wall_form(443,44,568,151);
+		wall_vec.push_back(wall16);
+		SDL_Rect wall17 = wall_form(456,179,545,247);
+		wall_vec.push_back(wall17);
+		SDL_Rect wall18 = wall_form(545,229,593,248);
+		wall_vec.push_back(wall18);
+		SDL_Rect wall19 = wall_form(446,251,498,307);
+		wall_vec.push_back(wall19);
+		SDL_Rect wall20 = wall_form(596,47,653,213);
+		wall_vec.push_back(wall20);
+		SDL_Rect wall21 = wall_form(572,169,595,213);
+		wall_vec.push_back(wall21);
+		SDL_Rect wall22 = wall_form(609,213,651,248);
+		wall_vec.push_back(wall22);
+		SDL_Rect wall23 = wall_form(677,0,700,420);
+		wall_vec.push_back(wall23);
+		SDL_Rect wall24 = wall_form(514,278,633,349);
+		wall_vec.push_back(wall24);
+		SDL_Rect wall25 = wall_form(514,365,633,420);
+		wall_vec.push_back(wall25);
+		SDL_Rect wall26 = wall_form(446,328,514,420);
+		wall_vec.push_back(wall26);
 		return wall_vec;
 	}
 	else if(mMap==3){
@@ -1308,6 +1384,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 8)
 				{
 					gdelhi16Texture.render( 0, 0 );
+					player1.update_health();
 				}
 				else if(player1.getMap() == 2)
 				{
@@ -1328,6 +1405,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 9)
 				{
 					gsacTexture.render( 0, 0 );
+					player1.update_enjoy();
 				}
 				else if(player1.getMap() == 10)
 				{
