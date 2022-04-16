@@ -103,7 +103,7 @@ class Player1
 		static const int PLAYER1_HEIGHT = 15;
 
 		//Maximum axis velocity of the player1
-		static const int PLAYER1_VEL = 2;
+		static const int PLAYER1_VEL = 4;
 
 		//Initializes the variables
 		Player1();
@@ -202,10 +202,16 @@ LTexture gPlayer1Texture;
 //Map textures
 LTexture gmap1Texture;
 LTexture gminimartTexture;
+LTexture glibraryTexture;
+LTexture gdelhi16Texture;
+LTexture gmap2Texture;
 LTexture gmap3Texture;
 LTexture gmap4Texture;
 LTexture gmap5Texture;
-LTexture gmap6Texture;
+LTexture gathelticsTexture;
+LTexture gmaingroundTexture;
+LTexture gamulTexture;
+LTexture gsacTexture;
 
 SDL_Color TextColor = { 255, 0, 0, 255}; // Red SDL color.
 TTF_Font* Font; // The font to be loaded from the ttf file.
@@ -254,13 +260,14 @@ bool LTexture::loadFromFile( std::string path )
 		{
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
-		else if (path=="map1.png" || path == "minimart.png" || path == "map3.png" || path == "map4.png" || path == "map5.png" || path == "map6.png")
+		else if (path=="map1.png" || path == "minimart.png" || path == "library.png" || path == "delhi16.png" || path == "map2.png" || path == "map3.png"|| path == "map4.png"|| path == "map5.png"
+		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png")
 		{
 			//Get image dimensions
 			//Get image dimensions
 			mWidth = SCREEN_WIDTH;
 			mHeight = SCREEN_HEIGHT;
-		}
+		}		
 		else
 		{
 			//Get image dimensions
@@ -374,8 +381,8 @@ int LTexture::getHeight()
 Player1::Player1()
 {
     //Initialize the offsets
-    mPosX = 645;
-    mPosY = 14;
+    mPosX = 44;
+    mPosY = 63;
 	health_index = 0.0;
 	enjoyment_index = 0.0;
 	acadStatus = 0.0;
@@ -387,7 +394,7 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-	mMap = 6;		
+	mMap = 1;		
 }
 // Player2::Player2()
 // {
@@ -416,16 +423,18 @@ void Player1::handleEvent( SDL_Event& e )
 	//If a key was pressed
 	if( e.type == SDL_KEYDOWN)
     {
+		//map1 to minimart
 		if ((mPosX < 400) && (mPosY < 520) && (mPosX>300) && (mPosY>400) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
-							mMap = 2;
+							mMap = 6;
 							mPosX = 950; 
 							mPosY = 400; 
 							break;
 						}
 			}
-		if ((mPosX >900) && (mPosY < 500) && (mPosY>300) && (mMap == 2)){
+		//minimart to map1
+		if ((mPosX >900) && (mPosY < 500) && (mPosY>300) && (mMap == 6)){
 				switch( e.key.keysym.sym ){
 							case SDLK_o: 
 							mMap = 1;
@@ -434,15 +443,195 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
+		//map 1 to map 2
 		if ((mPosX >550) && (mPosX < 598) &&(mPosY < 600) && (mPosY>540) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
-							case SDLK_DOWN: 
-							mMap = 5;
+							case SDLK_e: 
+							mMap = 2;
 							mPosX = 614; 
 							mPosY = 21; 
 							break;
 						}
 			}
+		//map 2 to map 1
+		if ((mPosX >578) && (mPosX < 660) &&(mPosY < 50) && (mPosY>0) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 1;
+							mPosX = 572; 
+							mPosY = 555; 
+							break;
+						}
+			}
+		// map2 to map3
+		if ((mPosX >412) && (mPosX < 461) &&(mPosY < 600) && (mPosY>540) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 3;
+							mPosX = 450; 
+							mPosY = 14; 
+							break;
+						}
+			}
+		if ((mPosX >592) && (mPosX < 655) &&(mPosY < 600) && (mPosY>540) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 3;
+							mPosX = 640; 
+							mPosY = 11; 
+							break;
+						}
+			}
+		if ((mPosX >920) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>550) && (mMap == 2)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 3;
+							mPosX = 965; 
+							mPosY = 14; 
+							break;
+						}
+			}
+		//map 3 to map 2
+		if ((mPosX >427) && (mPosX < 500) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 2;
+							mPosX = 440; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		if ((mPosX >610) && (mPosX < 680) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 2;
+							mPosX = 617; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		if ((mPosX >928) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 2;
+							mPosX = 944; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		//map 3 to map 4
+		if ((mPosX >420) && (mPosX < 496) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 4;
+							mPosX = 424; 
+							mPosY = 14; 
+							break;
+						}
+			}
+		if ((mPosX >635) && (mPosX < 723) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 4;
+							mPosX = 557; 
+							mPosY = 8; 
+							break;
+						}
+			}
+		if ((mPosX >920) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>550) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 4;
+							mPosX = 952; 
+							mPosY = 14; 
+							break;
+						}
+			}
+		//map 4 to map 3
+		if ((mPosX >400) && (mPosX < 463) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 450; 
+							mPosY = 589; 
+							break;
+						}
+			}
+		if ((mPosX >510) && (mPosX < 600) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 667; 
+							mPosY = 589; 
+							break;
+						}
+			}
+		if ((mPosX >918) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 966; 
+							mPosY = 589; 
+							break;
+						}
+			}
+		//map4 to map5
+		if ((mPosX >467) && (mPosX < 545) &&(mPosY < 600) && (mPosY>550) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 5;
+							mPosX = 466; 
+							mPosY = 11; 
+							break;
+						}
+			}
+		if ((mPosX >720) && (mPosX < 830) &&(mPosY < 600) && (mPosY>550) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 5;
+							mPosX = 714; 
+							mPosY = 11; 
+							break;
+						}
+			}
+		if ((mPosX >900) && (mPosX < 1000) &&(mPosY < 600) && (mPosY>547) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 5;
+							mPosX = 929; 
+							mPosY = 11; 
+							break;
+						}
+			}
+		//map 5 to 4
+		if ((mPosX >440) && (mPosX < 510) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 4;
+							mPosX = 498; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		if ((mPosX >684) && (mPosX < 761) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 4;
+							mPosX = 771; 
+							mPosY = 580; 
+							break;
+						}
+			}
+		if ((mPosX >900) && (mPosX < 1000) &&(mPosY < 50) && (mPosY>0) && (mMap == 5)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 4;
+							mPosX = 956; 
+							mPosY = 580; 
+							break;
+						}
+			}
+
         if(e.key.repeat == 0 ){
 			switch( e.key.keysym.sym )
 			{
@@ -682,6 +871,21 @@ bool loadMedia()
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
+	if( !glibraryTexture.loadFromFile( "library.png" ) )
+	{
+		printf( "Failed to load map1 texture!\n" );
+		success = false;
+	}
+	if( !gdelhi16Texture.loadFromFile( "delhi16.png" ) )
+	{
+		printf( "Failed to load map1 texture!\n" );
+		success = false;
+	}
+	if( !gmap2Texture.loadFromFile( "map2.png" ) )
+	{
+		printf( "Failed to load map1 texture!\n" );
+		success = false;
+	}
 	if( !gmap3Texture.loadFromFile( "map3.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
@@ -697,9 +901,20 @@ bool loadMedia()
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap6Texture.loadFromFile( "map6.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
+	if (!gmaingroundTexture.loadFromFile("mainground.png")){
+		printf("Failed to load mainground texture!\n");
+		success = false;
+	}
+	if (!gathelticsTexture.loadFromFile("atheltics.png")){
+		printf("Failed to load atheltics texture!\n");
+		success = false;
+	}
+	if (!gamulTexture.loadFromFile("amul.png")){
+		printf("Failed to load amul texture!\n");
+		success = false;
+	}
+	if (!gsacTexture.loadFromFile("sac.png")){
+		printf("Failed to load sac texture!\n");
 		success = false;
 	}
 
@@ -714,10 +929,16 @@ void close()
 	// gPlayer2Texture.free();
 	gmap1Texture.free();
 	gminimartTexture.free();
+	glibraryTexture.free();
+	gdelhi16Texture.free();
+	gmap2Texture.free();
 	gmap3Texture.free();
 	gmap4Texture.free();
 	gmap5Texture.free();
-	gmap6Texture.free();
+	gsacTexture.free();
+	gamulTexture.free();
+	gmaingroundTexture.free();
+	gathelticsTexture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -829,9 +1050,17 @@ std::vector<SDL_Rect> Player1::get_walls(){
 		wall_vec.push_back(wall11);
 		SDL_Rect wall12 = wall_form(35,260,162,359);
 		wall_vec.push_back(wall12);
+		SDL_Rect wall13 = wall_form(5,5,695,22);
+		wall_vec.push_back(wall13);
+		SDL_Rect wall14 = wall_form(343,215,634,337);
+		wall_vec.push_back(wall14);
+		SDL_Rect wall15 = wall_form(269,265,336,336);
+		wall_vec.push_back(wall15);
+		SDL_Rect wall16 = wall_form(179,261,248,355);
+		wall_vec.push_back(wall16);
 		return wall_vec;
 	}
-	else if(mMap==5){
+	else if(mMap==2){
 		//St the wall
 		std::vector<SDL_Rect> wall_vec;
 		SDL_Rect wall1 = wall_form(1,1,418,26);
@@ -852,7 +1081,7 @@ std::vector<SDL_Rect> Player1::get_walls(){
 		wall_vec.push_back(wall8);
 		return wall_vec;
 	}
-	else if(mMap==6){
+	else if(mMap==3){
 		//St the wall
 		std::vector<SDL_Rect> wall_vec;
 		SDL_Rect wall1 = wall_form(1,1,291,417);
@@ -883,7 +1112,7 @@ std::vector<SDL_Rect> Player1::get_walls(){
 		wall_vec.push_back(wall13);
 		return wall_vec;
 	}
-	else if(mMap==7){
+	else if(mMap==4){
 		//St the wall
 		std::vector<SDL_Rect> wall_vec;
 		SDL_Rect wall1 = wall_form(682,1,700,418);
@@ -912,12 +1141,75 @@ std::vector<SDL_Rect> Player1::get_walls(){
 		wall_vec.push_back(wall12);
 		SDL_Rect wall13 = wall_form(385,126,405,168);
 		wall_vec.push_back(wall13);
-		SDL_Rect wall14 = wall_form();
+		SDL_Rect wall14 = wall_form(424,129,474,164);
 		wall_vec.push_back(wall14);
-		SDL_Rect wall15 = wall_form();
+		SDL_Rect wall15 = wall_form(494,129,514,166);
 		wall_vec.push_back(wall15);
-		SDL_Rect wall16 = wall_form();
+		SDL_Rect wall16 = wall_form(389,174,514,230);
 		wall_vec.push_back(wall16);
+		SDL_Rect wall17 = wall_form(389,233,510,306);
+		wall_vec.push_back(wall17);
+		SDL_Rect wall18 = wall_form(512,234,533,286);
+		wall_vec.push_back(wall18);
+		SDL_Rect wall19 = wall_form(323,311,360,378);
+		wall_vec.push_back(wall19);
+		SDL_Rect wall20 = wall_form(362,309,531,418);
+		wall_vec.push_back(wall20);
+		SDL_Rect wall21 = wall_form(288,405,340,416);
+		wall_vec.push_back(wall21);
+		SDL_Rect wall22 = wall_form(1,1,287,415);
+		wall_vec.push_back(wall22);
+		return wall_vec;
+	}
+	else if(mMap==5){
+		//St the wall
+		std::vector<SDL_Rect> wall_vec;
+		SDL_Rect wall1 = wall_form(1,2,255,417);
+		wall_vec.push_back(wall1);
+		SDL_Rect wall2 = wall_form(278,41,317,254);
+		wall_vec.push_back(wall2);
+		SDL_Rect wall3 = wall_form(322,104,359,125);
+		wall_vec.push_back(wall3);
+		SDL_Rect wall4 = wall_form(322,145,359,254);
+		wall_vec.push_back(wall4);
+		SDL_Rect wall5 = wall_form(342,2,491,75);
+		wall_vec.push_back(wall5);
+		SDL_Rect wall6 = wall_form(379,104,404,184);
+		wall_vec.push_back(wall6);
+		SDL_Rect wall7 = wall_form(389,187,404,201);
+		wall_vec.push_back(wall7);
+		SDL_Rect wall8 = wall_form(380,203,404,257);
+		wall_vec.push_back(wall8);
+		SDL_Rect wall9 = wall_form(427,106,489,143);
+		wall_vec.push_back(wall9);
+		SDL_Rect wall10 = wall_form(427,176,491,205);
+		wall_vec.push_back(wall10);
+		SDL_Rect wall11 = wall_form(448,214,491,238);
+		wall_vec.push_back(wall11);
+		SDL_Rect wall12 = wall_form(428,228,443,256);
+		wall_vec.push_back(wall12);
+		SDL_Rect wall13 = wall_form(461,243,491,253);
+		wall_vec.push_back(wall13);
+		SDL_Rect wall14 = wall_form(278,283,493,379);
+		wall_vec.push_back(wall14);
+		SDL_Rect wall15 = wall_form(278,412,493,417);
+		wall_vec.push_back(wall15);
+		SDL_Rect wall16 = wall_form(518,410,700,420);
+		wall_vec.push_back(wall16);
+		SDL_Rect wall17 = wall_form(667,1,697,407);
+		wall_vec.push_back(wall17);
+		SDL_Rect wall18 = wall_form(515,284,641,378);
+		wall_vec.push_back(wall18);
+		SDL_Rect wall19 = wall_form(576,145,639,253);
+		wall_vec.push_back(wall19);
+		SDL_Rect wall20 = wall_form(515,233,545,253);
+		wall_vec.push_back(wall20);
+		SDL_Rect wall21 = wall_form(515,90,571,229);
+		wall_vec.push_back(wall21);
+		SDL_Rect wall22 = wall_form(604,90,640,141);
+		wall_vec.push_back(wall22);
+		SDL_Rect wall23 = wall_form(517,3,641,48);
+		wall_vec.push_back(wall23);
 		return wall_vec;
 	}
 	else{
@@ -1004,10 +1296,22 @@ int main( int argc, char* args[] )
 				{
 					gmap1Texture.render( 0, 0 );
 				}
-				else if(player1.getMap() == 2)
+				else if(player1.getMap() == 6)
 				{
 					gminimartTexture.render( 0, 0 );
-					player1.update_health();
+					player1.update_enjoy();
+				}
+				else if(player1.getMap() == 7)
+				{
+					glibraryTexture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 8)
+				{
+					gdelhi16Texture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 2)
+				{
+					gmap2Texture.render( 0, 0 );
 				}
 				else if(player1.getMap() == 3)
 				{
@@ -1021,10 +1325,23 @@ int main( int argc, char* args[] )
 				{
 					gmap5Texture.render( 0, 0 );
 				}
-				else if(player1.getMap() == 6)
+				else if(player1.getMap() == 9)
 				{
-					gmap6Texture.render( 0, 0 );
+					gsacTexture.render( 0, 0 );
 				}
+				else if(player1.getMap() == 10)
+				{
+					gamulTexture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 11)
+				{
+					gmaingroundTexture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 12)
+				{
+					gathelticsTexture.render( 0, 0 );
+				}
+				
 				
 				player1.render();
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
