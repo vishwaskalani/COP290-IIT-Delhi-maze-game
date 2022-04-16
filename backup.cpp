@@ -113,27 +113,16 @@ class Player1
 
 		//Moves the player1
 		void move(std::vector<SDL_Rect> wall_vec);
-		void update_health();
-		void update_acad();
-		void update_enjoy();
 
 		//Shows the player1 on the screen
 		void render();
 
 		int getMap();
-		int getXcord();
-		int getYcord();
-		int getHealth();
-		int getAcad();
-		int getEnjoy();
 
 		std::vector<SDL_Rect> get_walls();
-		// std::vector<std::vector<int>> get_health_incr_areas();
 
     private:
 		//The X and Y offsets of the player1
-		float health_index,acadStatus,enjoyment_index;
-
 		int mPosX, mPosY;
 
 		//The velocity of the player1
@@ -201,19 +190,9 @@ LTexture gPlayer1Texture;
 // LTexture gPlayer2Texture;
 //Map textures
 LTexture gmap1Texture;
-LTexture gminimartTexture;
+LTexture gmap2Texture;
 LTexture gmap3Texture;
 LTexture gmap4Texture;
-LTexture gmap5Texture;
-LTexture gmap6Texture;
-
-SDL_Color TextColor = { 255, 0, 0, 255}; // Red SDL color.
-TTF_Font* Font; // The font to be loaded from the ttf file.
-SDL_Surface* TextSurface; // The surface necessary to create the font texture.
-SDL_Texture* TextTexture; // The font texture prepared for render.
-SDL_Rect TextRect1; // Text rectangle area with the position for the texture text.
-SDL_Rect TextRect2; // Text rectangle area with the position for the texture text.
-SDL_Rect TextRect3; // Text rectangle area with the position for the texture text.
 
 LTexture::LTexture()
 {
@@ -254,7 +233,7 @@ bool LTexture::loadFromFile( std::string path )
 		{
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
-		else if (path=="map1.png" || path == "minimart.png" || path == "map3.png" || path == "map4.png" || path == "map5.png" || path == "map6.png")
+		else if (path=="map1.png" || path == "map2.png" || path == "map3.png" || path == "map4.png")
 		{
 			//Get image dimensions
 			//Get image dimensions
@@ -374,11 +353,8 @@ int LTexture::getHeight()
 Player1::Player1()
 {
     //Initialize the offsets
-    mPosX = 645;
-    mPosY = 14;
-	health_index = 0.0;
-	enjoyment_index = 0.0;
-	acadStatus = 0.0;
+    mPosX = 0;
+    mPosY = 0;
 
 	//Set collision box dimension
 	mCollider.w = PLAYER1_WIDTH;
@@ -387,7 +363,7 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-	mMap = 6;		
+	mMap = 1;		
 }
 // Player2::Player2()
 // {
@@ -406,56 +382,41 @@ Player1::Player1()
 
 void Player1::handleEvent( SDL_Event& e )
 {
-	// if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && (mPosX < 400) && (mPosY < 500) && (mPosX>300) && (mPosY>400))
-	// {
-	// 	switch( e.key.keysym.sym ){
-	// 		case SDLK_e: mMap = 2; break;
-	// 	}
-	// }
 
-	//If a key was pressed
-	if( e.type == SDL_KEYDOWN)
+	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 && (abs(mPosX - ((409*10)/7)) < 5) && (abs(mPosY - (409*10)/7)) < 5)
+
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_UP: mVelY += PLAYER1_VEL; break;
+            case SDLK_DOWN: mPosY = 0; mVelY = 0; break;
+            case SDLK_LEFT: mVelX = 0; break;
+            case SDLK_RIGHT: mVelX = 0; break;
+			std::cout<<"hello"<<std::endl;
+        }
+
+	else if( e.type == SDL_KEYUP && e.key.repeat == 0 && (mPosX > 10) && (mPosY > 10))
+
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_UP: mVelY -= PLAYER1_VEL; break;
+            case SDLK_DOWN: mPosY = 0; mVelY = 0; mMap = 2; break;
+            case SDLK_LEFT: mVelX = 0; break;
+            case SDLK_RIGHT: mVelX = 0; break;
+        }
+    //If a key was pressed
+	else if( e.type == SDL_KEYDOWN && e.key.repeat == 0)
     {
-		if ((mPosX < 400) && (mPosY < 520) && (mPosX>300) && (mPosY>400) && (mMap == 1)){
-				switch( e.key.keysym.sym ){
-							case SDLK_e: 
-							mMap = 2;
-							mPosX = 950; 
-							mPosY = 400; 
-							break;
-						}
-			}
-		if ((mPosX >900) && (mPosY < 500) && (mPosY>300) && (mMap == 2)){
-				switch( e.key.keysym.sym ){
-							case SDLK_o: 
-							mMap = 1;
-							mPosX = 359; 
-							mPosY = 463; 
-							break;
-						}
-			}
-		if ((mPosX >550) && (mPosX < 598) &&(mPosY < 600) && (mPosY>540) && (mMap == 1)){
-				switch( e.key.keysym.sym ){
-							case SDLK_DOWN: 
-							mMap = 5;
-							mPosX = 614; 
-							mPosY = 21; 
-							break;
-						}
-			}
-        if(e.key.repeat == 0 ){
-			switch( e.key.keysym.sym )
-			{
-				case SDLK_UP: mVelY -= PLAYER1_VEL; break;
-				case SDLK_DOWN: mVelY += PLAYER1_VEL; break;
-				case SDLK_LEFT: mVelX -= PLAYER1_VEL; break;
-				case SDLK_RIGHT: mVelX += PLAYER1_VEL; break;
-			}
-		}
-        
+        //Adjust the velocity
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_UP: mVelY -= PLAYER1_VEL; break;
+            case SDLK_DOWN: mVelY += PLAYER1_VEL; break;
+            case SDLK_LEFT: mVelX -= PLAYER1_VEL; break;
+            case SDLK_RIGHT: mVelX += PLAYER1_VEL; break;
+        }
     }
     //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
+    else if( e.type == SDL_KEYUP && e.key.repeat == 0)
     {
         //Adjust the velocity
         switch( e.key.keysym.sym )
@@ -466,6 +427,7 @@ void Player1::handleEvent( SDL_Event& e )
             case SDLK_RIGHT: mVelX -= PLAYER1_VEL; break;
         }
     }
+
 
 }
 // void Player2::handleEvent( SDL_Event& e )
@@ -561,40 +523,6 @@ int Player1::getMap()
 {
 	return mMap;
 }
-
-int Player1::getXcord()
-{
-	return mPosX;
-}
-int Player1::getYcord()
-{
-	return mPosY;
-}
-
-void Player1::update_health(){
-	health_index+=0.02;
-	}
-void Player1::update_acad(){
-	acadStatus+=0.02;
-	}
-void Player1::update_enjoy(){
-	enjoyment_index+=0.02;
-	}
-
-int Player1::getHealth()
-{
-	return health_index;
-}
-int Player1::getAcad()
-{
-	return acadStatus;
-}
-int Player1::getEnjoy()
-{
-	return enjoyment_index;
-}
-
-// }
 // void Player2::render()
 // {
 //     //Show the player2
@@ -677,7 +605,7 @@ bool loadMedia()
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gminimartTexture.loadFromFile( "minimart.png" ) )
+	if( !gmap2Texture.loadFromFile( "map2.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
@@ -688,16 +616,6 @@ bool loadMedia()
 		success = false;
 	}
 	if( !gmap4Texture.loadFromFile( "map4.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
-		success = false;
-	}
-	if( !gmap5Texture.loadFromFile( "map5.png" ) )
-	{
-		printf( "Failed to load map1 texture!\n" );
-		success = false;
-	}
-	if( !gmap6Texture.loadFromFile( "map6.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
@@ -713,11 +631,9 @@ void close()
 
 	// gPlayer2Texture.free();
 	gmap1Texture.free();
-	gminimartTexture.free();
+	gmap2Texture.free();
 	gmap3Texture.free();
 	gmap4Texture.free();
-	gmap5Texture.free();
-	gmap6Texture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -783,8 +699,6 @@ bool checkCollision( SDL_Rect a, std::vector<SDL_Rect> wall_vec )
 }
 
 
-
-
 SDL_Rect wall_form( int a,int b,int c,int d )
 {
 	SDL_Rect wall;
@@ -795,12 +709,6 @@ SDL_Rect wall_form( int a,int b,int c,int d )
 	return wall;
 }
 
-
-// std::vector<std::vector<int>> Player1::get_health_incr_areas()
-// {
-// 	std::vector<std::vector<int>> vec(0);
-// 	return vec;
-// }
 std::vector<SDL_Rect> Player1::get_walls(){
 	if(mMap==1){
 		//St the wall
@@ -831,119 +739,12 @@ std::vector<SDL_Rect> Player1::get_walls(){
 		wall_vec.push_back(wall12);
 		return wall_vec;
 	}
-	else if(mMap==5){
-		//St the wall
-		std::vector<SDL_Rect> wall_vec;
-		SDL_Rect wall1 = wall_form(1,1,418,26);
-		wall_vec.push_back(wall1);
-		SDL_Rect wall2 = wall_form(444,2,700,28);
-		wall_vec.push_back(wall2);
-		SDL_Rect wall3 = wall_form(2,32,24,258);
-		wall_vec.push_back(wall3);
-		SDL_Rect wall4 = wall_form(1,267,7,488);
-		wall_vec.push_back(wall4);
-		SDL_Rect wall5 = wall_form(46,49,197,278);
-		wall_vec.push_back(wall5);
-		SDL_Rect wall6 = wall_form(28,281,196,335);
-		wall_vec.push_back(wall6);
-		SDL_Rect wall7 = wall_form(28,340,239,376);
-		wall_vec.push_back(wall7);
-		SDL_Rect wall8 = wall_form(28,376,297,487);
-		wall_vec.push_back(wall8);
-		return wall_vec;
-	}
-	else if(mMap==6){
-		//St the wall
-		std::vector<SDL_Rect> wall_vec;
-		SDL_Rect wall1 = wall_form(1,1,291,417);
-		wall_vec.push_back(wall1);
-		SDL_Rect wall2 = wall_form(331,6,421,237);
-		wall_vec.push_back(wall2);
-		SDL_Rect wall3 = wall_form(344,246,436,277);
-		wall_vec.push_back(wall3);
-		SDL_Rect wall4 = wall_form(335,297,430,414);
-		wall_vec.push_back(wall4);
-		SDL_Rect wall5 = wall_form(436,404,460,416);
-		wall_vec.push_back(wall5);
-		SDL_Rect wall6 = wall_form(459,29,512,234);
-		wall_vec.push_back(wall6);
-		SDL_Rect wall7 = wall_form(519,5,665,337);
-		wall_vec.push_back(wall7);
-		SDL_Rect wall8 = wall_form(459,260,514,308);
-		wall_vec.push_back(wall8);
-		SDL_Rect wall9 = wall_form(469,311,512,371);
-		wall_vec.push_back(wall9);
-		SDL_Rect wall10 = wall_form(517,348,556,417);
-		wall_vec.push_back(wall10);
-		SDL_Rect wall11 = wall_form(483,377,512,416);
-		wall_vec.push_back(wall11);
-		SDL_Rect wall12 = wall_form(561,341,636,419);
-		wall_vec.push_back(wall12);
-		SDL_Rect wall13 = wall_form(640,367,666,416);
-		wall_vec.push_back(wall13);
-		return wall_vec;
-	}
-	else if(mMap==7){
-		//St the wall
-		std::vector<SDL_Rect> wall_vec;
-		SDL_Rect wall1 = wall_form(682,1,700,418);
-		wall_vec.push_back(wall1);
-		SDL_Rect wall2 = wall_form(570,198,654,276);
-		wall_vec.push_back(wall2);
-		SDL_Rect wall3 = wall_form(557,277,654,414);
-		wall_vec.push_back(wall3);
-		SDL_Rect wall4 = wall_form(403,1,654,79);
-		wall_vec.push_back(wall4);
-		SDL_Rect wall5 = wall_form(404,83,502,99);
-		wall_vec.push_back(wall5);
-		SDL_Rect wall6 = wall_form(522,85,654,101);
-		wall_vec.push_back(wall6);
-		SDL_Rect wall7 = wall_form(532,106,652,151);
-		wall_vec.push_back(wall7);
-		SDL_Rect wall8 = wall_form(535,157,620,176);
-		wall_vec.push_back(wall8);
-		SDL_Rect wall9 = wall_form(638,159,652,178);
-		wall_vec.push_back(wall9);
-		SDL_Rect wall10 = wall_form(312,3,375,35);
-		wall_vec.push_back(wall10);
-		SDL_Rect wall11 = wall_form(327,37,381,54);
-		wall_vec.push_back(wall11);
-		SDL_Rect wall12 = wall_form(311,58,383,305);
-		wall_vec.push_back(wall12);
-		SDL_Rect wall13 = wall_form(385,126,405,168);
-		wall_vec.push_back(wall13);
-		SDL_Rect wall14 = wall_form();
-		wall_vec.push_back(wall14);
-		SDL_Rect wall15 = wall_form();
-		wall_vec.push_back(wall15);
-		SDL_Rect wall16 = wall_form();
-		wall_vec.push_back(wall16);
-		return wall_vec;
-	}
 	else{
 		std::vector<SDL_Rect> wall_vec(0);
 		return wall_vec;
 	}
 }
 
-void rect_text1(const char* Message,int pos1,int pos2){
-	TTF_Init();
-    TTF_Font *font = TTF_OpenFont("lazy.ttf", 16);
-    if (!font)
-        std::cout << "Couldn't find ttf font." << std::endl;
-    TextSurface = TTF_RenderText_Solid(font, Message, TextColor);
-    TextTexture = SDL_CreateTextureFromSurface(gRenderer, TextSurface);
-    TextRect1.x = pos1; // Center horizontaly
-    TextRect1.y = pos2; // Center verticaly
-    TextRect1.w = TextSurface->w;
-    TextRect1.h = TextSurface->h;
-    // After you create the texture you can release the surface memory allocation because we actually render the texture not the surface.
-    SDL_FreeSurface(TextSurface);
-    TTF_Quit();
-	SDL_RenderCopy(gRenderer, TextTexture, NULL, &TextRect1); // Add text to render queue.
-    SDL_RenderPresent(gRenderer); // Render everything that's on the queue.
-
-}
 
 int main( int argc, char* args[] )
 {
@@ -990,7 +791,6 @@ int main( int argc, char* args[] )
 
 				//Move the player1
 				player1.move(player1.get_walls());
-				// player1.update_health(player1.get_health_incr_areas());
 				// player2.move(wall_vec);
 
 				//Clear screen
@@ -1006,8 +806,7 @@ int main( int argc, char* args[] )
 				}
 				else if(player1.getMap() == 2)
 				{
-					gminimartTexture.render( 0, 0 );
-					player1.update_health();
+					gmap2Texture.render( 0, 0 );
 				}
 				else if(player1.getMap() == 3)
 				{
@@ -1017,31 +816,12 @@ int main( int argc, char* args[] )
 				{
 					gmap4Texture.render( 0, 0 );
 				}
-				else if(player1.getMap() == 5)
-				{
-					gmap5Texture.render( 0, 0 );
-				}
-				else if(player1.getMap() == 6)
-				{
-					gmap6Texture.render( 0, 0 );
-				}
 				
 				player1.render();
-				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				std::string str1= "[Health_index - "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index - "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus - "+std::to_string(player1.getAcad())+"]";
-				char* c1 = const_cast<char*>(str1.c_str());
 				// player2.render();
-				rect_text1(c1,0,550);
-				// player1.render();
-				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
-				// char* c1 = const_cast<char*>(str2.c_str());
-				// // player2.render();
-				// CreateText(c1,600,200);
-				// RenderText();
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
-				
 				
 			}
 		}
