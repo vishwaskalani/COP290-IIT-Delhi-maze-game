@@ -387,7 +387,8 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-	mMap = 6;		
+
+	mMap = 1;
 }
 // Player2::Player2()
 // {
