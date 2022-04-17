@@ -118,6 +118,8 @@ class Player1
 		void update_acad();
 		void update_enjoy();
 		void update_vel();
+		void update_money();
+		void spend_money();
 
 		//Shows the player1 on the screen
 		void render();
@@ -125,16 +127,17 @@ class Player1
 		int getMap();
 		int getXcord();
 		int getYcord();
-		int getHealth();
+		float getHealth();
 		int getAcad();
 		int getEnjoy();
+		int getMoney();
 
 		std::vector<SDL_Rect> get_walls();
 		// std::vector<std::vector<int>> get_health_incr_areas();
 
     private:
 		//The X and Y offsets of the player1
-		float health_index,acadStatus,enjoyment_index;
+		float health_index,acadStatus,enjoyment_index,money;
 
 		int mPosX, mPosY;
 
@@ -216,6 +219,7 @@ LTexture gamulTexture;
 LTexture gsacTexture;
 LTexture glhcTexture;
 LTexture ghospTexture;
+LTexture gbankTexture;
 LTexture gstartTexture;
 
 SDL_Color TextColor = { 255, 255, 255, 255}; // Red SDL color.
@@ -266,7 +270,7 @@ bool LTexture::loadFromFile( std::string path )
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
 		else if (path=="map1.png" || path == "minimart.png" || path == "library.png" || path == "delhi16.png" || path == "map2.png" || path == "map3.png"|| path == "map4.png"|| path == "map5.png"
-		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png"|| path == "lhc.png"|| path == "start.png"||path == "hosp.png")
+		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png"|| path == "lhc.png"|| path == "start.png"||path == "hosp.png" ||path == "bank.png")
 		{
 			//Get image dimensions
 			//Get image dimensions
@@ -388,9 +392,10 @@ Player1::Player1()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 5.0;
+	health_index = 50.0;
 	enjoyment_index = 0.0;
 	acadStatus = 0.0;
+	money = 100.0;
 
 	//Set collision box dimension
 	mCollider.w = PLAYER1_WIDTH;
@@ -596,6 +601,26 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
+		//map4 to bank
+		if ((mPosX >=675) && (mPosX<=710) && (mPosY>=150) && (mPosY<=216) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 15;
+							mPosX = 750; 
+							mPosY = 578; 
+							break;
+						}
+			}
+		//bank to map4 
+		if ((mPosX >=700) && (mPosY>=448) && (mPosX<=826) && (mMap == 15)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 4;
+							mPosX = 680; 
+							mPosY = 166; 
+							break;
+						}
+			}
 		//map 1 to map 2
 		if ((mPosX >=550) && (mPosX <= 598) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
@@ -630,8 +655,8 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 3;
-							mPosX = 640; 
-							mPosY = 11; 
+							mPosX = 630; 
+							mPosY = 5; 
 							break;
 						}
 			}
@@ -677,7 +702,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 4;
-							mPosX = 424; 
+							mPosX = 416; 
 							mPosY = 14; 
 							break;
 						}
@@ -686,7 +711,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 4;
-							mPosX = 557; 
+							mPosX = 550; 
 							mPosY = 8; 
 							break;
 						}
@@ -695,7 +720,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 4;
-							mPosX = 952; 
+							mPosX = 945; 
 							mPosY = 14; 
 							break;
 						}
@@ -705,7 +730,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP: 
 							mMap = 3;
-							mPosX = 450; 
+							mPosX = 445; 
 							mPosY = 589; 
 							break;
 						}
@@ -714,7 +739,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP: 
 							mMap = 3;
-							mPosX = 667; 
+							mPosX = 662; 
 							mPosY = 589; 
 							break;
 						}
@@ -723,7 +748,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP: 
 							mMap = 3;
-							mPosX = 966; 
+							mPosX = 961; 
 							mPosY = 589; 
 							break;
 						}
@@ -733,7 +758,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 5;
-							mPosX = 466; 
+							mPosX = 461; 
 							mPosY = 11; 
 							break;
 						}
@@ -742,7 +767,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 5;
-							mPosX = 714; 
+							mPosX = 710; 
 							mPosY = 11; 
 							break;
 						}
@@ -751,7 +776,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_DOWN: 
 							mMap = 5;
-							mPosX = 929; 
+							mPosX = 925; 
 							mPosY = 11; 
 							break;
 						}
@@ -761,7 +786,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP: 
 							mMap = 4;
-							mPosX = 498; 
+							mPosX = 493; 
 							mPosY = 580; 
 							break;
 						}
@@ -770,7 +795,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP:
 							mMap = 4;
-							mPosX = 771; 
+							mPosX = 766; 
 							mPosY = 580; 
 							break;
 						}
@@ -779,7 +804,7 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_UP: 
 							mMap = 4;
-							mPosX = 956; 
+							mPosX = 951; 
 							mPosY = 580; 
 							break;
 						}
@@ -930,8 +955,14 @@ void Player1::update_acad(){
 void Player1::update_enjoy(){
 	enjoyment_index+=0.02;
 	}
+void Player1::update_money(){
+	money+=1;
+	}
+void Player1::spend_money(){
+	money-=1;
+	}
 
-int Player1::getHealth()
+float Player1::getHealth()
 {
 	return health_index;
 }
@@ -942,6 +973,10 @@ int Player1::getAcad()
 int Player1::getEnjoy()
 {
 	return enjoyment_index;
+}
+int Player1::getMoney()
+{
+	return money;
 }
 
 // }
@@ -1086,6 +1121,10 @@ bool loadMedia()
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
+	if (!gbankTexture.loadFromFile("bank.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
 	if (!gstartTexture.loadFromFile("start.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
@@ -1114,6 +1153,7 @@ void close()
 	gathelticsTexture.free();
 	glhcTexture.free();
 	ghospTexture.free();
+	gbankTexture.free();
 	gstartTexture.free();
 
 	//Destroy window	
@@ -1435,7 +1475,7 @@ void rect_text1(const char* Message,int pos1,int pos2){
     TTF_Font *font = TTF_OpenFont("caviar.ttf", 12);
     if (!font)
         std::cout << "Couldn't find ttf font." << std::endl;
-    TextSurface = TTF_RenderText_Blended_Wrapped(font, Message, TextColor, 150);
+    TextSurface = TTF_RenderText_Blended_Wrapped(font, Message, TextColor, 200);
     TextTexture = SDL_CreateTextureFromSurface(gRenderer, TextSurface);
     TextRect1.x = pos1; // Center horizontaly
     TextRect1.y = pos2; // Center verticaly
@@ -1574,6 +1614,11 @@ int main( int argc, char* args[] )
 				{
 					ghospTexture.render( 0, 0 );
 				}
+				else if(player1.getMap() == 15)
+				{
+					gbankTexture.render( 0, 0 );
+					player1.update_money();
+				}
 				
 				if (player1.getMap()!=0)
 				{
@@ -1581,12 +1626,12 @@ int main( int argc, char* args[] )
 					player1.decrease_health();
 				}
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				std::string str1= "[Health_index = "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player1.getAcad())+"]";
+				std::string str1= "[Health_index = "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player1.getAcad())+"] \n"+"[Money = "+std::to_string(player1.getMoney())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
 				// player2.render();
 				if (player1.getMap()!=0)
 				{
-					rect_text1(c1,0,550);
+					rect_text1(c1,0,537);
 				}
 				// player1.render();
 				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
