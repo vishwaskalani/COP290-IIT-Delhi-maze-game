@@ -1,7 +1,5 @@
 /*This source code copyrighted by Lazy Foo' Productions (2004-2022)
 and may not be redistributed without written permission.*/
-/*This source code copyrighted by Lazy Foo' Productions (2004-2022)
-and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, and strings
 #include "server.h"
@@ -16,6 +14,7 @@ and may not be redistributed without written permission.*/
 //Screen dimension constants
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 600;
+char* mybuff;
 
 //Texture wrapper class
 class LTexture
@@ -149,6 +148,30 @@ class Player1
 		//Dot's collision box
 		SDL_Rect mCollider;
 };
+//The player1 that will move around on the screen
+class Player2
+{
+    public:
+		Player2();
+		int getMap();
+		int getXcord();
+		int getYcord();
+		int getHealth();
+		int getAcad();
+		int getEnjoy();
+		int getMoney();
+		void assign_param();
+		void render();
+
+    private:
+		//The X and Y offsets of the player1
+		float health_index,acadStatus,enjoyment_index,money;
+
+		int mPosX, mPosY;
+
+		int mMap;
+};
+
 
 //The player1 that will move around on the screen
 // class Player2
@@ -204,7 +227,7 @@ SDL_Renderer* gRenderer = NULL;
 
 //Scene textures
 LTexture gPlayer1Texture;
-// LTexture gPlayer2Texture;
+LTexture gPlayer2Texture;
 //Map textures
 LTexture gmap1Texture;
 LTexture gminimartTexture;
@@ -405,6 +428,18 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
+	mMap = 0;		
+}
+
+Player2::Player2()
+{
+    //Initialize the offsets
+    mPosX = 44;
+    mPosY = 63;
+	health_index = 50.0;
+	enjoyment_index = 0.0;
+	acadStatus = 0.0;
+	money = 100.0;    //Initialize the velocity
 	mMap = 0;		
 }
 // Player2::Player2()
@@ -924,6 +959,11 @@ void Player1::render()
     //Show the player1
 	gPlayer1Texture.render( mPosX, mPosY );
 }
+void Player2::render()
+{
+    //Show the player1
+	gPlayer2Texture.render( mPosX, mPosY );
+}
 
 int Player1::getMap()
 {
@@ -935,6 +975,19 @@ int Player1::getXcord()
 	return mPosX;
 }
 int Player1::getYcord()
+{
+	return mPosY;
+}
+int Player2::getMap()
+{
+	return mMap;
+}
+
+int Player2::getXcord()
+{
+	return mPosX;
+}
+int Player2::getYcord()
 {
 	return mPosY;
 }
@@ -978,6 +1031,41 @@ int Player1::getEnjoy()
 int Player1::getMoney()
 {
 	return money;
+}
+int Player2::getHealth()
+{
+	return health_index;
+}
+int Player2::getAcad()
+{
+	return acadStatus;
+}
+int Player2::getEnjoy()
+{
+	return enjoyment_index;
+}
+int Player2::getMoney()
+{
+	return money;
+}
+void Player2::assign_param(){
+	std::string strp = std::string(mybuff);
+	std::istringstream ss(strp);
+	std::string word; 
+	ss>>word;
+	mMap = std::stoi(word);
+	ss>>word;
+	mPosX = std::stoi(word);
+	ss>>word;
+	mPosY = std::stoi(word);
+	ss>>word;
+	health_index = std::stoi(word);
+	ss>>word;
+	enjoyment_index = std::stoi(word);
+	ss>>word;
+	acadStatus = std::stoi(word);
+	ss>>word;
+	money = std::stoi(word);
 }
 
 // }
@@ -1050,6 +1138,11 @@ bool loadMedia()
 	if( !gPlayer1Texture.loadFromFile( "Resources/parti1.png" ) )
 	{
 		printf( "Failed to load player1 texture!\n" );
+		success = false;
+	}
+	if( !gPlayer2Texture.loadFromFile( "Resources/parti2.png" ) )
+	{
+		printf( "Failed to load player2 texture!\n" );
 		success = false;
 	}
 	// if( !gPlayer2Texture.loadFromFile( "Resources/player2.png" ) )
@@ -1138,6 +1231,7 @@ void close()
 {
 	//Free loaded images
 	gPlayer1Texture.free();
+	gPlayer2Texture.free();
 
 	// gPlayer2Texture.free();
 	gmap1Texture.free();
@@ -1489,6 +1583,24 @@ void rect_text1(const char* Message,int pos1,int pos2){
     SDL_RenderPresent(gRenderer); // Render everything that's on the queue.
 
 }
+void rect_text2(const char* Message,int pos1,int pos2){
+	TTF_Init();
+    TTF_Font *font = TTF_OpenFont("caviar.ttf", 12);
+    if (!font)
+        std::cout << "Couldn't find ttf font." << std::endl;
+    TextSurface = TTF_RenderText_Blended_Wrapped(font, Message, TextColor, 200);
+    TextTexture = SDL_CreateTextureFromSurface(gRenderer, TextSurface);
+    TextRect2.x = pos1; // Center horizontaly
+    TextRect2.y = pos2; // Center verticaly
+    TextRect2.w = TextSurface->w;
+    TextRect2.h = TextSurface->h;
+    // After you create the texture you can release the surface memory allocation because we actually render the texture not the surface.
+    SDL_FreeSurface(TextSurface);
+    TTF_Quit();
+	SDL_RenderCopy(gRenderer, TextTexture, NULL, &TextRect2); // Add text to render queue.
+    SDL_RenderPresent(gRenderer); // Render everything that's on the queue.
+
+}
 
 int main( int argc, char* args[] )
 {
@@ -1514,9 +1626,11 @@ int main( int argc, char* args[] )
 
 			//The player1 that will be moving around on the screen
 			Player1 player1;
+			Player2 player2;
 			// Player2 player2;			
 
 			//While application is running
+			serversetup();
 			while( !quit )
 			{
 				//Handle events on queue
@@ -1626,6 +1740,10 @@ int main( int argc, char* args[] )
 					player1.render();
 					player1.decrease_health();
 				}
+				if (player1.getMap()==player2.getMap())
+				{
+					player2.render();
+				}
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
 				std::string str1= "[Health_index = "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player1.getAcad())+"] \n"+"[Money = "+std::to_string(player1.getMoney())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
@@ -1633,6 +1751,15 @@ int main( int argc, char* args[] )
 				if (player1.getMap()!=0)
 				{
 					rect_text1(c1,0,537);
+				}
+				SDL_SetRenderDrawColor( gRenderer, 51, 0, 102, 255 );
+				int b = SDL_RenderFillRect(gRenderer,&TextRect2);
+				std::string str2= "[Health_index = "+std::to_string(player2.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player2.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player2.getAcad())+"] \n"+"[Money = "+std::to_string(player2.getMoney())+"]";
+				char* c2 = const_cast<char*>(str2.c_str());
+				// player2.render();
+				if (player2.getMap()!=0)
+				{
+					rect_text2(c2,0,200);
 				}
 				// player1.render();
 				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
@@ -1644,18 +1771,19 @@ int main( int argc, char* args[] )
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 				
-				serversetup();
-				string temp = to_string(player1.getMap()) + " " + to_string(player1.getXcord()) + " " + to_string(player1.getYcord()) + " " + to_string(player1.getHealth()) + " " + to_string(player1.getEnjoy()) + " " + to_string(player1.getAcad());
+				
+				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney()) + " ";
 				char* c = const_cast<char*>(temp.c_str());
-				string x1 = serversendmessage(c);
-				serverreadbuffer();			
-				// string x2 = serversendmessage("Hello from client - 2");
-				// string x3 = sendmessage("Hello from client - 3");
-				// string x4 = sendmessage("Hello from client - 4");
-				// string x5 = sendmessage("Hello from client - 5");
-				// string x6 = sendmessage("Hello from client - 6");
-				// string x7 = serversendmessage("Hello from client - 7");
-
+				serversendmessage(c);
+				mybuff = serverreadbuffer();	
+				player2.assign_param();
+					
+				// string x2 = serversendmessage("Hello from server - 2");
+				// string x3 = sendmessage("Hello from server - 3");
+				// string x4 = sendmessage("Hello from server - 4");
+				// string x5 = sendmessage("Hello from server - 5");
+				// string x6 = sendmessage("Hello from server - 6");
+				// string x7 = serversendmessage("Hello from server - 7");	
 			}
 		}
 	}
@@ -1665,5 +1793,3 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
-
-

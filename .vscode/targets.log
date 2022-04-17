@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Sun Apr 17 15:08:10 2022
+# Make data base, printed on Sun Apr 17 23:07:25 2022
 
 # Variables
 
@@ -16,7 +15,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = VSCODE_WSL_EXT_LOCATION/up
+WSLENV = ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID
 # default
 .SHELLFLAGS := -c
 # environment
@@ -36,7 +35,7 @@ SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/node
+_ = /mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin/code
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -60,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-932a0b18-78ea-4748-830b-72420c1e58d5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-d0074e1c-6db2-4979-be8b-f474868107c4.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -76,9 +75,11 @@ PWD = /home/ishaan/COP290/COP-game
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/14074_interop
+WSL_INTEROP = /run/WSL/8_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
+# environment
+WT_SESSION = fc23a39d-bf1a-4582-b0e9-1e48f4a44e3e
 # makefile (from 'Makefile', line 12)
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 # environment
@@ -98,7 +99,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
 MAKELEVEL := 0
 # environment
-PLATFORMIO_PATH = /home/ishaan/.platformio/penv/bin:/home/ishaan/.platformio/penv:/home/ishaan/.platformio/python3/bin:/home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PLATFORMIO_PATH = /home/ishaan/.platformio/python3/bin:/home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -106,9 +107,9 @@ MAKECMDGOALS := all
 # makefile (from 'Makefile', line 9)
 COMPILER_FLAGS = -w
 # environment
-PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/WINDOWS:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # environment
-SHLVL = 0
+SHLVL = 1
 # makefile (from 'Makefile', line 5)
 CC = g++
 # default
@@ -118,7 +119,7 @@ USER = ishaan
 # makefile
 .DEFAULT_GOAL := all
 # environment
-NAME = ISHAAN-LAPTOP
+NAME = Code
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
@@ -139,6 +140,8 @@ MFLAGS = -pqrR
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
+# environment
+WT_PROFILE_ID = {2c4de342-38b7-51cf-b940-2309a097f518}
 # default
 MAKEFILES := 
 # automatic
@@ -170,7 +173,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # variable set hash-table stats:
-# Load=79/1024=8%, Rehash=0, Collisions=8/113=7%
+# Load=81/1024=8%, Rehash=0, Collisions=8/115=7%
 
 # Pattern-specific Variable Values
 
@@ -178,9 +181,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 38 files, no impossibilities.
+# . (device 2080, inode 55540): 27 files, no impossibilities.
 
-# 38 files, no impossibilities in 1 directories.
+# 27 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -191,7 +194,7 @@ WSL_DISTRO_NAME = Ubuntu
 # Not a target:
 testfile-server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-17 14:55:24.536450828
+#  Last modified 2022-04-17 19:49:13.543878751
 #  File has been updated.
 #  Successfully updated.
 
@@ -232,7 +235,7 @@ all: testfile-server.cpp
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-17 15:07:48.346445179
+#  Last modified 2022-04-17 15:47:20.176427167
 #  File has been updated.
 #  Successfully updated.
 
@@ -250,12 +253,12 @@ Makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 43 / storage = 438 B / avg = 10 B
-# current buf: size = 8162 B / used = 438 B / count = 43 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 32 / storage = 346 B / avg = 10 B
+# current buf: size = 8162 B / used = 346 B / count = 32 / avg = 10 B
 
-# strcache performance: lookups = 51 / hit rate = 15%
+# strcache performance: lookups = 40 / hit rate = 20%
 # hash-table stats:
-# Load=43/8192=1%, Rehash=0, Collisions=1/51=2%
-# Finished Make data base on Sun Apr 17 15:08:10 2022
+# Load=32/8192=0%, Rehash=0, Collisions=1/40=2%
+# Finished Make data base on Sun Apr 17 23:07:25 2022
 
  

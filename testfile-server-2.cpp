@@ -17,6 +17,8 @@ and may not be redistributed without written permission.*/
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 600;
 
+char* mybuff;
+
 //Texture wrapper class
 class LTexture
 {
@@ -1514,6 +1516,8 @@ int main( int argc, char* args[] )
 
 			//The player1 that will be moving around on the screen
 			Player1 player1;
+
+			serversetup();
 			// Player2 player2;			
 
 			//While application is running
@@ -1635,7 +1639,7 @@ int main( int argc, char* args[] )
 					rect_text1(c1,0,537);
 				}
 				// player1.render();
-				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
+				// std::string str2= "Player 1 ycord - "+std::std::to_string(player1.getYcord());
 				// char* c1 = const_cast<char*>(str2.c_str());
 				// // player2.render();
 				// CreateText(c1,600,200);
@@ -1643,12 +1647,19 @@ int main( int argc, char* args[] )
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
+
 				
-				serversetup();
-				string temp = to_string(player1.getMap()) + " " + to_string(player1.getXcord()) + " " + to_string(player1.getYcord()) + " " + to_string(player1.getHealth()) + " " + to_string(player1.getEnjoy()) + " " + to_string(player1.getAcad());
+
+				
+				// std::cout<<"hello2"<<std::endl;
+				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad()) + " " + std::to_string(player1.getMoney());
 				char* c = const_cast<char*>(temp.c_str());
-				string x1 = serversendmessage(c);
-				serverreadbuffer();			
+				serversendmessage(c);
+				mybuff = serverreadbuffer();		
+				// std::cout<<"hello"<<std::endl;	
+				// std::cout<<quit<<std::endl;
+				// quit = false;	
+
 				// string x2 = serversendmessage("Hello from client - 2");
 				// string x3 = sendmessage("Hello from client - 3");
 				// string x4 = sendmessage("Hello from client - 4");
