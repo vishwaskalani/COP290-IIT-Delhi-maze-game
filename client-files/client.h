@@ -7,5 +7,5 @@
 
 void clientsetup();
 void clientsendmessage(char* message);
-void clientreadbuffer();
+char* clientreadbuffer();
 

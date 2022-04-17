@@ -5,7 +5,7 @@
 int sock = 0, valread;
 struct sockaddr_in serv_addr;
 char* hello = "Hello from client";
-char buffer[10240] = { 0 };
+char buffer[30] = { 0 };
 
 void clientsetup(){
 
@@ -18,7 +18,7 @@ void clientsetup(){
 
 	// Convert IPv4 and IPv6 addresses from text to binary
 	// form
-	if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
+	if (inet_pton(AF_INET, "192.168.204.7", &serv_addr.sin_addr)
 		<= 0) {
 		printf(
 			"\nInvalid address/ Address not supported \n");
@@ -35,9 +35,9 @@ void clientsendmessage(char* message){
 	send(sock, message, strlen(message), 0);
 }
 
-void clientreadbuffer(){
-	valread = read(sock, buffer, 10240);
-	printf("%s\n", buffer);
+char* clientreadbuffer(){
+	valread = read(sock, buffer, 30);
+	return buffer;
 }
 
 
