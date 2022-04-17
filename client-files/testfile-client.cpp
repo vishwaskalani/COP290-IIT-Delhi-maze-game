@@ -1515,6 +1515,7 @@ int main( int argc, char* args[] )
 			// Player2 player2;			
 
 			//While application is running
+			clientsetup();
 			while( !quit )
 			{
 				//Handle events on queue
@@ -1642,11 +1643,12 @@ int main( int argc, char* args[] )
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 				
-				clientsetup();
+				
 				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad());
 				char* c = const_cast<char*>(temp.c_str());
-				clientsendmessage(c);
-				clientreadbuffer();		
+				clientreadbuffer();	
+				// clientsendmessage(c);
+					
 				// string x2 = serversendmessage("Hello from client - 2");
 				// string x3 = sendmessage("Hello from client - 3");
 				// string x4 = sendmessage("Hello from client - 4");

@@ -363,22 +363,6 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-	mMap = 1;		
-}
-// Player2::Player2()
-// {
-//     //Initialize the offsets
-//     mPosX = 0;
-//     mPosY = 0;
-
-// 	//Set collision box dimension
-// 	mCollider.w = PLAYER2_WIDTH;
-// 	mCollider.h = PLAYER2_HEIGHT;
-
-//     //Initialize the velocity
-//     mVelX = 0;
-//     mVelY = 0;
-// }
 
 void Player1::handleEvent( SDL_Event& e )
 {

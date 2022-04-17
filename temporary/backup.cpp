@@ -363,7 +363,15 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
+<<<<<<< Updated upstream:temporary/backup.cpp
 	mMap = 1;		
+=======
+
+	mMap = 1;
+<<<<<<< Updated upstream:temporary/backup.cpp
+>>>>>>> Stashed changes:testfile.cpp
+=======
+>>>>>>> Stashed changes:testfile.cpp
 }
 // Player2::Player2()
 // {
