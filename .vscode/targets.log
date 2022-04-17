@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 18 00:38:11 2022
+# Make data base, printed on Mon Apr 18 01:05:21 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-d0074e1c-6db2-4979-be8b-f474868107c4.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-62a79657-1a1d-44b7-a5f7-285cb765fa04.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -107,7 +107,7 @@ MAKECMDGOALS := all
 # makefile (from 'Makefile', line 9)
 COMPILER_FLAGS = -w
 # environment
-PATH = /home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 5)
@@ -172,8 +172,10 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
+# environment
+MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=81/1024=8%, Rehash=0, Collisions=8/115=7%
+# Load=82/1024=8%, Rehash=0, Collisions=8/116=7%
 
 # Pattern-specific Variable Values
 
@@ -181,9 +183,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 31 files, no impossibilities.
+# . (device 2080, inode 55540): 17 files, no impossibilities.
 
-# 31 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -194,7 +196,7 @@ WSL_DISTRO_NAME = Ubuntu
 # Not a target:
 testfile-server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-17 19:49:13.543878751
+#  Last modified 2022-04-18 01:02:08.743800328
 #  File has been updated.
 #  Successfully updated.
 
@@ -253,12 +255,12 @@ Makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 36 / storage = 393 B / avg = 10 B
-# current buf: size = 8162 B / used = 393 B / count = 36 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 224 B / avg = 10 B
+# current buf: size = 8162 B / used = 224 B / count = 22 / avg = 10 B
 
-# strcache performance: lookups = 44 / hit rate = 18%
+# strcache performance: lookups = 30 / hit rate = 26%
 # hash-table stats:
-# Load=36/8192=0%, Rehash=0, Collisions=1/44=2%
-# Finished Make data base on Mon Apr 18 00:38:11 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/30=3%
+# Finished Make data base on Mon Apr 18 01:05:21 2022
 
  

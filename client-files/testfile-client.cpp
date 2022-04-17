@@ -1849,12 +1849,6 @@ int main( int argc, char* args[] )
 				{
 					rect_text2(c2,0,200);
 				}
-				// player1.render();
-				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
-				// char* c1 = const_cast<char*>(str2.c_str());
-				// // player2.render();
-				// CreateText(c1,600,200);
-				// RenderText();
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
@@ -1864,14 +1858,7 @@ int main( int argc, char* args[] )
 				char* c = const_cast<char*>(temp.c_str());
 				mybuff = clientreadbuffer();	
 				clientsendmessage(c);
-				player2.assign_param();
-					
-				// string x2 = serversendmessage("Hello from client - 2");
-				// string x3 = sendmessage("Hello from client - 3");
-				// string x4 = sendmessage("Hello from client - 4");
-				// string x5 = sendmessage("Hello from client - 5");
-				// string x6 = sendmessage("Hello from client - 6");
-				// string x7 = serversendmessage("Hello from client - 7");	
+				player2.assign_param();	
 			}
 		}
 	}

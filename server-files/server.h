@@ -11,12 +11,8 @@
 #include <unistd.h>
 #define PORT 8080
 
-using namespace std;
-
 void serversetup();
-
-string serversendmessage(char* message);
-
-void serverreadbuffer();
+void serversendmessage(char* message);
+char* serverreadbuffer();
 
 

@@ -1,15 +1,14 @@
 // Server side C/C++ program to demonstrate Socket
 // programming
 #include "server.h"
-#define PORT 8080
 
-using namespace std;
+#define PORT 8080
 
 int server_fd, new_socket, valread;
 struct sockaddr_in address;
 int opt = 1;
 int addrlen = sizeof(address);
-char buffer[10240] = { 0 };
+char buffer[30] = { 0 };
 char* hello = "Hello from server";
 
 void serversetup(){
@@ -55,29 +54,19 @@ void serversetup(){
 // Server side C/C++ program to demonstrate Socket
 // programming
 
-string serversendmessage(char* message) {
-
+void serversendmessage(char* message) {
 	send(new_socket, message, strlen(message), 0);
-	printf("Hello message sentt\n");
-	return "hello";
 }
 
-void serverreadbuffer(){
-	valread = read(new_socket, buffer, 10240);
-	valread = read(new_socket, buffer, 10240);
-	printf("%s\n", buffer);
-	printf("%s\n", buffer);
+char* serverreadbuffer(){
+	valread = read(new_socket, buffer, 30);
+	return buffer;
 }
 
-// int main(int argc, char const* argv[])
-// {	
+// int main(int argc, char const *argv[])
+// {
 // 	serversetup();
-// 	string x1 = serversendmessage("Hello from client - initial");
-// 	string x2 = serversendmessage("Hello from client - 2");
-// 	// string x3 = sendmessage("Hello from client - 3");
-// 	// string x4 = sendmessage("Hello from client - 4");
-// 	// string x5 = sendmessage("Hello from client - 5");
-// 	// string x6 = sendmessage("Hello from client - 6");
-// 	string x7 = serversendmessage("Hello from client - 7");
+// 	serversendmessage("Hello");
 // 	serverreadbuffer();
+// 	return 0;
 // }
