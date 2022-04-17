@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Apr 16 21:31:45 2022
+# Make data base, printed on Sun Apr 17 10:27:53 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-a40fd07e-46ca-4ead-9e57-12d7d4ae8947.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-6aba1462-a5a2-46e0-9882-4d822cc488c2.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -181,9 +181,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 21 files, no impossibilities.
+# . (device 2080, inode 55540): 33 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 33 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -235,7 +235,7 @@ Makefile:
 # Not a target:
 testfile.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-16 10:18:45.47744984
+#  Last modified 2022-04-16 21:35:40.923651677
 #  File has been updated.
 #  Successfully updated.
 
@@ -253,12 +253,12 @@ testfile.cpp:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 246 B / avg = 9 B
-# current buf: size = 8162 B / used = 246 B / count = 26 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 378 B / avg = 9 B
+# current buf: size = 8162 B / used = 378 B / count = 38 / avg = 9 B
 
-# strcache performance: lookups = 34 / hit rate = 23%
+# strcache performance: lookups = 46 / hit rate = 17%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=1/34=3%
-# Finished Make data base on Sat Apr 16 21:31:45 2022
+# Load=38/8192=0%, Rehash=0, Collisions=1/46=2%
+# Finished Make data base on Sun Apr 17 10:27:53 2022
 
  

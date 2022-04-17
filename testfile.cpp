@@ -9,8 +9,8 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include <bits/stdc++.h>
 #include <vector>
-
-
+#include "client.h"
+#include "server.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1000;
@@ -1419,9 +1419,11 @@ int main( int argc, char* args[] )
 				{
 					gathelticsTexture.render( 0, 0 );
 				}
-				
-				
+								
 				player1.render();
+
+				
+
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
 				std::string str1= "[Health_index - "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index - "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus - "+std::to_string(player1.getAcad())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
