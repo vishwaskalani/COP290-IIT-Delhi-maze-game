@@ -126,7 +126,7 @@ class Player1
 		int getMap();
 		int getXcord();
 		int getYcord();
-		float getHealth();
+		int getHealth();
 		int getAcad();
 		int getEnjoy();
 		int getMoney();
@@ -268,8 +268,8 @@ bool LTexture::loadFromFile( std::string path )
 		{
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
-		else if (path=="map1.png" || path == "minimart.png" || path == "library.png" || path == "delhi16.png" || path == "map2.png" || path == "map3.png"|| path == "map4.png"|| path == "map5.png"
-		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png"|| path == "lhc.png"|| path == "start.png"||path == "hosp.png" ||path == "bank.png")
+		else if (path == "Resources/map1.png" || path == "Resources/minimart.png" || path == "Resources/library.png" || path == "Resources/delhi16.png" || path == "Resources/map2.png" || path == "Resources/map3.png"|| path == "Resources/map4.png"|| path == "Resources/map5.png"
+		|| path == "Resources/mainground.png" || path == "Resources/atheltics.png" || path == "Resources/sac.png" || path == "Resources/amul.png"|| path == "Resources/lhc.png"|| path == "Resources/start.png"||path == "Resources/hosp.png" ||path == "Resources/bank.png")
 		{
 			//Get image dimensions
 			//Get image dimensions
@@ -961,15 +961,15 @@ void Player1::spend_money(){
 	money-=1;
 	}
 
-float Player1::getHealth()
+int Player1::getHealth()
 {
 	return health_index;
 }
-float Player1::getAcad()
+int Player1::getAcad()
 {
 	return acadStatus;
 }
-float Player1::getEnjoy()
+int Player1::getEnjoy()
 {
 	return enjoyment_index;
 }
@@ -1045,86 +1045,86 @@ bool loadMedia()
 	bool success = true;
 
 	//Load player1 texture
-	if( !gPlayer1Texture.loadFromFile( "parti1.png" ) )
+	if( !gPlayer1Texture.loadFromFile( "Resources/parti1.png" ) )
 	{
 		printf( "Failed to load player1 texture!\n" );
 		success = false;
 	}
-	// if( !gPlayer2Texture.loadFromFile( "player2.png" ) )
+	// if( !gPlayer2Texture.loadFromFile( "Resources/player2.png" ) )
 	// {
 	// 	printf( "Failed to load player2 texture!\n" );
 	// 	success = false;
 	// }
 
-	if( !gmap1Texture.loadFromFile( "map1.png" ) )
+	if( !gmap1Texture.loadFromFile( "Resources/map1.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gminimartTexture.loadFromFile( "minimart.png" ) )
+	if( !gminimartTexture.loadFromFile( "Resources/minimart.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !glibraryTexture.loadFromFile( "library.png" ) )
+	if( !glibraryTexture.loadFromFile( "Resources/library.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gdelhi16Texture.loadFromFile( "delhi16.png" ) )
+	if( !gdelhi16Texture.loadFromFile( "Resources/delhi16.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap2Texture.loadFromFile( "map2.png" ) )
+	if( !gmap2Texture.loadFromFile( "Resources/map2.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap3Texture.loadFromFile( "map3.png" ) )
+	if( !gmap3Texture.loadFromFile( "Resources/map3.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap4Texture.loadFromFile( "map4.png" ) )
+	if( !gmap4Texture.loadFromFile( "Resources/map4.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap5Texture.loadFromFile( "map5.png" ) )
+	if( !gmap5Texture.loadFromFile( "Resources/map5.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if (!gmaingroundTexture.loadFromFile("mainground.png")){
+	if (!gmaingroundTexture.loadFromFile( "Resources/mainground.png")){
 		printf("Failed to load mainground texture!\n");
 		success = false;
 	}
-	if (!gathelticsTexture.loadFromFile("atheltics.png")){
+	if (!gathelticsTexture.loadFromFile( "Resources/atheltics.png")){
 		printf("Failed to load atheltics texture!\n");
 		success = false;
 	}
-	if (!gamulTexture.loadFromFile("amul.png")){
+	if (!gamulTexture.loadFromFile( "Resources/amul.png")){
 		printf("Failed to load amul texture!\n");
 		success = false;
 	}
-	if (!gsacTexture.loadFromFile("sac.png")){
+	if (!gsacTexture.loadFromFile( "Resources/sac.png")){
 		printf("Failed to load sac texture!\n");
 		success = false;
 	}
-	if (!glhcTexture.loadFromFile("lhc.png")){
+	if (!glhcTexture.loadFromFile( "Resources/lhc.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!ghospTexture.loadFromFile("hosp.png")){
+	if (!ghospTexture.loadFromFile( "Resources/hosp.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!gbankTexture.loadFromFile("bank.png")){
+	if (!gbankTexture.loadFromFile( "Resources/bank.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!gstartTexture.loadFromFile("start.png")){
+	if (!gstartTexture.loadFromFile( "Resources/start.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
@@ -1643,7 +1643,7 @@ int main( int argc, char* args[] )
 				SDL_RenderPresent( gRenderer );
 				
 				clientsetup();
-				string temp = to_string(player1.getMap()) + " " + to_string(player1.getXcord()) + " " + to_string(player1.getYcord()) + " " + to_string(player1.getHealth()) + " " + to_string(player1.getEnjoy()) + " " + to_string(player1.getAcad());
+				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad());
 				char* c = const_cast<char*>(temp.c_str());
 				clientsendmessage(c);
 				clientreadbuffer();		
