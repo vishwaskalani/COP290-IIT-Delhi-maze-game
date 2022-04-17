@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Apr 15 11:27:31 2022
+# Make data base, printed on Sat Apr 16 21:31:45 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0080de47-0df1-4295-8090-fc9e8a2109e5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-a40fd07e-46ca-4ead-9e57-12d7d4ae8947.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -79,9 +79,9 @@ WSL_INTEROP = /run/WSL/8_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
-WT_SESSION = 94356ca0-d754-46e8-8210-72532d893fc7
+WT_SESSION = fc23a39d-bf1a-4582-b0e9-1e48f4a44e3e
 # makefile (from 'Makefile', line 12)
-LINKER_FLAGS = -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -91,7 +91,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 LOGNAME = ishaan
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -141,7 +141,7 @@ MFLAGS = -pqrR
 # automatic
 +F = $(notdir $+)
 # environment
-WT_PROFILE_ID = {61c54bbd-c2c6-5271-96e7-009a87ff44bf}
+WT_PROFILE_ID = {2c4de342-38b7-51cf-b940-2309a097f518}
 # default
 MAKEFILES := 
 # automatic
@@ -181,9 +181,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 12 files, no impossibilities.
+# . (device 2080, inode 55540): 21 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -228,14 +228,14 @@ all: testfile.cpp
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-15 11:26:44.220857008
+#  Last modified 2022-04-16 10:16:41.637450476
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 testfile.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-15 11:26:44.240857008
+#  Last modified 2022-04-16 10:18:45.47744984
 #  File has been updated.
 #  Successfully updated.
 
@@ -253,12 +253,12 @@ testfile.cpp:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 17 / storage = 167 B / avg = 9 B
-# current buf: size = 8162 B / used = 167 B / count = 17 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 246 B / avg = 9 B
+# current buf: size = 8162 B / used = 246 B / count = 26 / avg = 9 B
 
-# strcache performance: lookups = 25 / hit rate = 32%
+# strcache performance: lookups = 34 / hit rate = 23%
 # hash-table stats:
-# Load=17/8192=0%, Rehash=0, Collisions=1/25=4%
-# Finished Make data base on Fri Apr 15 11:27:31 2022
+# Load=26/8192=0%, Rehash=0, Collisions=1/34=3%
+# Finished Make data base on Sat Apr 16 21:31:45 2022
 
  
