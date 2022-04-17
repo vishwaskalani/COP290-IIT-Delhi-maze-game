@@ -388,7 +388,7 @@ Player1::Player1()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 20.0;
+	health_index = 5.0;
 	enjoyment_index = 0.0;
 	acadStatus = 0.0;
 
@@ -433,6 +433,26 @@ void Player1::handleEvent( SDL_Event& e )
 				switch( e.key.keysym.sym ){
 							case SDLK_RETURN: 
 							mMap = 1;
+							break;
+						}
+			}
+		//negative health to hospital
+		if ((mMap != 0) && health_index < 0){
+				switch( e.key.keysym.sym ){
+							case SDLK_a: 
+							mMap = 14;
+							mPosX = 0;
+							mPosY = 0;
+							break;
+						}
+			}
+		//hospital to out
+		if ((mMap == 14) && (mPosX <= 812) && (mPosX>=731) && (mPosY>=490)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 648; 
+							mPosY = 11; 
 							break;
 						}
 			}
@@ -897,7 +917,12 @@ void Player1::update_health(){
 	health_index+=0.02;
 	}
 void Player1::decrease_health(){
-	health_index-=0.01;
+	if(mMap!=14){
+		health_index-=0.01;
+		}	
+	else{
+		health_index+=0.01;
+		}
 	}
 void Player1::update_acad(){
 	acadStatus+=0.02;
@@ -1057,7 +1082,7 @@ bool loadMedia()
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!glhcTexture.loadFromFile("hosp.png")){
+	if (!ghospTexture.loadFromFile("hosp.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
@@ -1467,8 +1492,11 @@ int main( int argc, char* args[] )
 					// player2.handleEvent( e );
 				}
 
+				if(player1.getHealth()>0){
+					player1.move(player1.get_walls());
+				}
 				//Move the player1
-				player1.move(player1.get_walls());
+				
 				// player1.update_health(player1.get_health_incr_areas());
 				// player2.move(wall_vec);
 
