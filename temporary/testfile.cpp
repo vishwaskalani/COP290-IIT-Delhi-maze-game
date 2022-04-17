@@ -131,6 +131,7 @@ class Player1
 		int getAcad();
 		int getEnjoy();
 		int getMoney();
+		bool getYulu();
 
 		std::vector<SDL_Rect> get_walls();
 		// std::vector<std::vector<int>> get_health_incr_areas();
@@ -145,6 +146,7 @@ class Player1
 		int mVelX, mVelY;
 
 		int mMap;
+		bool Yulu;
 		//Dot's collision box
 		SDL_Rect mCollider;
 };
