@@ -69,15 +69,15 @@ void serverreadbuffer(){
 	printf("%s\n", buffer);
 }
 
-int main(int argc, char const* argv[])
-{	
-	serversetup();
-	string x1 = serversendmessage("Hello from client - initial");
-	string x2 = serversendmessage("Hello from client - 2");
-	// string x3 = sendmessage("Hello from client - 3");
-	// string x4 = sendmessage("Hello from client - 4");
-	// string x5 = sendmessage("Hello from client - 5");
-	// string x6 = sendmessage("Hello from client - 6");
-	string x7 = serversendmessage("Hello from client - 7");
-	serverreadbuffer();
-}
+// int main(int argc, char const* argv[])
+// {	
+// 	serversetup();
+// 	string x1 = serversendmessage("Hello from client - initial");
+// 	string x2 = serversendmessage("Hello from client - 2");
+// 	// string x3 = sendmessage("Hello from client - 3");
+// 	// string x4 = sendmessage("Hello from client - 4");
+// 	// string x5 = sendmessage("Hello from client - 5");
+// 	// string x6 = sendmessage("Hello from client - 6");
+// 	string x7 = serversendmessage("Hello from client - 7");
+// 	serverreadbuffer();
+// }

@@ -7,11 +7,10 @@ struct sockaddr_in serv_addr;
 char* hello = "Hello from client";
 char buffer[10240] = { 0 };
 
-int setup(){
+void clientsetup(){
 
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		printf("\n Socket creation error \n");
-		return -1;
 	}
 
 	serv_addr.sin_family = AF_INET;
@@ -23,35 +22,24 @@ int setup(){
 		<= 0) {
 		printf(
 			"\nInvalid address/ Address not supported \n");
-		return -1;
 	}
 
 	if (connect(sock, (struct sockaddr*)&serv_addr,
 				sizeof(serv_addr))
 		< 0) {
 		printf("\nConnection Failed \n");
-		return -1;
 	}
+}
 
-	return 0;}
-
-void sendmessage(char* message){
+void clientsendmessage(char* message){
 	send(sock, message, strlen(message), 0);
 }
 
-void readbuffer(){
+void clientreadbuffer(){
 	valread = read(sock, buffer, 10240);
 	printf("%s\n", buffer);
 }
 
 
-int main(int argc, char const* argv[])
-{
-	int bb = setup();
-	sendmessage("I am ishaan");
-	printf("Hello message sent\n");
-	sendmessage("I am ishaan");
-	printf("Hello message sent\n");
-	readbuffer();
-}
+
 

@@ -5,7 +5,7 @@
 #include <unistd.h>
 #define PORT 8080
 
-int setup();
-void sendmessage(char* message);
-void readbuffer();
+void clientsetup();
+void clientsendmessage(char* message);
+void clientreadbuffer();
 

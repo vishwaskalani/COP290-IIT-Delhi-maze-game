@@ -2,6 +2,7 @@
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, and strings
+#include "server.h"
 #include <SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<SDL2/SDL_ttf.h>
@@ -9,8 +10,6 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include <bits/stdc++.h>
 #include <vector>
-#include "client.h"
-#include "server.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1000;
@@ -114,8 +113,10 @@ class Player1
 		//Moves the player1
 		void move(std::vector<SDL_Rect> wall_vec);
 		void update_health();
+		void decrease_health();
 		void update_acad();
 		void update_enjoy();
+		void update_vel();
 
 		//Shows the player1 on the screen
 		void render();
@@ -123,9 +124,9 @@ class Player1
 		int getMap();
 		int getXcord();
 		int getYcord();
-		int getHealth();
-		int getAcad();
-		int getEnjoy();
+		float getHealth();
+		float getAcad();
+		float getEnjoy();
 
 		std::vector<SDL_Rect> get_walls();
 		// std::vector<std::vector<int>> get_health_incr_areas();
@@ -212,8 +213,11 @@ LTexture gathelticsTexture;
 LTexture gmaingroundTexture;
 LTexture gamulTexture;
 LTexture gsacTexture;
+LTexture glhcTexture;
+LTexture ghospTexture;
+LTexture gstartTexture;
 
-SDL_Color TextColor = { 255, 0, 0, 255}; // Red SDL color.
+SDL_Color TextColor = { 255, 255, 255, 255}; // Red SDL color.
 TTF_Font* Font; // The font to be loaded from the ttf file.
 SDL_Surface* TextSurface; // The surface necessary to create the font texture.
 SDL_Texture* TextTexture; // The font texture prepared for render.
@@ -261,7 +265,7 @@ bool LTexture::loadFromFile( std::string path )
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		}
 		else if (path=="map1.png" || path == "minimart.png" || path == "library.png" || path == "delhi16.png" || path == "map2.png" || path == "map3.png"|| path == "map4.png"|| path == "map5.png"
-		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png")
+		|| path == "mainground.png" || path == "atheltics.png" || path == "sac.png" || path == "amul.png"|| path == "lhc.png"|| path == "start.png"||path == "hosp.png")
 		{
 			//Get image dimensions
 			//Get image dimensions
@@ -383,7 +387,7 @@ Player1::Player1()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 0.0;
+	health_index = 20.0;
 	enjoyment_index = 0.0;
 	acadStatus = 0.0;
 
@@ -394,7 +398,7 @@ Player1::Player1()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
-	mMap = 1;		
+	mMap = 0;		
 }
 // Player2::Player2()
 // {
@@ -423,6 +427,14 @@ void Player1::handleEvent( SDL_Event& e )
 	//If a key was pressed
 	if( e.type == SDL_KEYDOWN)
     {
+		//starting the game
+		if ((mMap == 0)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 1;
+							break;
+						}
+			}
 		//map1 to minimart
 		if ((mPosX <= 400) && (mPosY <= 520) && (mPosX>=300) && (mPosY>=400) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
@@ -483,10 +495,90 @@ void Player1::handleEvent( SDL_Event& e )
 							break;
 						}
 			}
+		//map3 to main ground
+		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=112) && (mPosY<=162) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 11;
+							mPosX = 920; 
+							mPosY = 560; 
+							break;
+						}
+			}
+		//main ground to map3
+		if ((mPosX >=900) && (mPosY>=550) && (mMap == 11)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 633; 
+							mPosY = 138; 
+							break;
+						}
+			}
+		//map3 to atheletic ground
+		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=387) && (mPosY<=420) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 12;
+							mPosX = 920; 
+							mPosY = 560; 
+							break;
+						}
+			}
+		//atheletic ground to map3 
+		if ((mPosX >=900) && (mPosY>=550) && (mMap == 12)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 633; 
+							mPosY = 407; 
+							break;
+						}
+			}
+		//map3 to amul
+		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=432) && (mPosY<=470) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 10;
+							mPosX = 511; 
+							mPosY = 563; 
+							break;
+						}
+			}
+		//amul to map3 
+		if ((mPosX >=462) && (mPosY>=520) && (mPosX<=567) && (mMap == 10)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 640; 
+							mPosY = 451; 
+							break;
+						}
+			}
+		//map3 to library
+		if ((mPosX >=620) && (mPosX<=700) && (mPosY>=528) && (mPosY<=573) && (mMap == 3)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 7;
+							mPosX = 434; 
+							mPosY = 570; 
+							break;
+						}
+			}
+		//library to map3 
+		if ((mPosX >=392) && (mPosY>=520) && (mPosX<=490) && (mMap == 7)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 3;
+							mPosX = 656; 
+							mPosY = 554; 
+							break;
+						}
+			}
 		//map 1 to map 2
 		if ((mPosX >=550) && (mPosX <= 598) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 2;
 							mPosX = 614; 
 							mPosY = 21; 
@@ -496,7 +588,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map 2 to map 1
 		if ((mPosX >=578) && (mPosX <= 660) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 1;
 							mPosX = 572; 
 							mPosY = 555; 
@@ -506,7 +598,7 @@ void Player1::handleEvent( SDL_Event& e )
 		// map2 to map3
 		if ((mPosX >=412) && (mPosX <= 461) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 3;
 							mPosX = 450; 
 							mPosY = 14; 
@@ -515,7 +607,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=592) && (mPosX <= 655) &&(mPosY <= 600) && (mPosY>=540) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 3;
 							mPosX = 640; 
 							mPosY = 11; 
@@ -524,7 +616,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=920) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 3;
 							mPosX = 965; 
 							mPosY = 14; 
@@ -534,7 +626,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map 3 to map 2
 		if ((mPosX >=427) && (mPosX <= 500) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 2;
 							mPosX = 430; 
 							mPosY = 580; 
@@ -543,7 +635,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=610) && (mPosX <= 680) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 2;
 							mPosX = 610; 
 							mPosY = 580; 
@@ -552,7 +644,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=928) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 2;
 							mPosX = 944; 
 							mPosY = 580; 
@@ -562,7 +654,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map 3 to map 4
 		if ((mPosX >=420) && (mPosX <= 496) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 4;
 							mPosX = 424; 
 							mPosY = 14; 
@@ -571,7 +663,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=635) && (mPosX <= 723) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 4;
 							mPosX = 557; 
 							mPosY = 8; 
@@ -580,7 +672,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=920) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 4;
 							mPosX = 952; 
 							mPosY = 14; 
@@ -590,7 +682,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map 4 to map 3
 		if ((mPosX >=400) && (mPosX <= 463) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 3;
 							mPosX = 450; 
 							mPosY = 589; 
@@ -599,7 +691,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=510) && (mPosX <= 600) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 3;
 							mPosX = 667; 
 							mPosY = 589; 
@@ -608,7 +700,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=918) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 3;
 							mPosX = 966; 
 							mPosY = 589; 
@@ -618,7 +710,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map4 to map5
 		if ((mPosX >=467) && (mPosX <= 545) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 5;
 							mPosX = 466; 
 							mPosY = 11; 
@@ -627,7 +719,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=720) && (mPosX <= 830) &&(mPosY <= 600) && (mPosY>=550) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 5;
 							mPosX = 714; 
 							mPosY = 11; 
@@ -636,7 +728,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=900) && (mPosX <= 1000) &&(mPosY <= 600) && (mPosY>=547) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_DOWN: 
 							mMap = 5;
 							mPosX = 929; 
 							mPosY = 11; 
@@ -646,7 +738,7 @@ void Player1::handleEvent( SDL_Event& e )
 		//map 5 to 4
 		if ((mPosX >=440) && (mPosX <= 510) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 4;
 							mPosX = 498; 
 							mPosY = 580; 
@@ -655,7 +747,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=684) && (mPosX <= 761) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP:
 							mMap = 4;
 							mPosX = 771; 
 							mPosY = 580; 
@@ -664,7 +756,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 		if ((mPosX >=900) && (mPosX <= 1000) &&(mPosY <= 50) && (mPosY>=0) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_UP: 
 							mMap = 4;
 							mPosX = 956; 
 							mPosY = 580; 
@@ -803,6 +895,9 @@ int Player1::getYcord()
 void Player1::update_health(){
 	health_index+=0.02;
 	}
+void Player1::decrease_health(){
+	health_index-=0.01;
+	}
 void Player1::update_acad(){
 	acadStatus+=0.02;
 	}
@@ -810,15 +905,15 @@ void Player1::update_enjoy(){
 	enjoyment_index+=0.02;
 	}
 
-int Player1::getHealth()
+float Player1::getHealth()
 {
 	return health_index;
 }
-int Player1::getAcad()
+float Player1::getAcad()
 {
 	return acadStatus;
 }
-int Player1::getEnjoy()
+float Player1::getEnjoy()
 {
 	return enjoyment_index;
 }
@@ -890,7 +985,7 @@ bool loadMedia()
 	bool success = true;
 
 	//Load player1 texture
-	if( !gPlayer1Texture.loadFromFile( "player1.png" ) )
+	if( !gPlayer1Texture.loadFromFile( "parti1.png" ) )
 	{
 		printf( "Failed to load player1 texture!\n" );
 		success = false;
@@ -957,6 +1052,18 @@ bool loadMedia()
 		printf("Failed to load sac texture!\n");
 		success = false;
 	}
+	if (!glhcTexture.loadFromFile("lhc.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!glhcTexture.loadFromFile("hosp.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gstartTexture.loadFromFile("start.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
 
 	return success;
 }
@@ -979,6 +1086,9 @@ void close()
 	gamulTexture.free();
 	gmaingroundTexture.free();
 	gathelticsTexture.free();
+	glhcTexture.free();
+	ghospTexture.free();
+	gstartTexture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -1296,10 +1406,10 @@ std::vector<SDL_Rect> Player1::get_walls(){
 
 void rect_text1(const char* Message,int pos1,int pos2){
 	TTF_Init();
-    TTF_Font *font = TTF_OpenFont("lazy.ttf", 16);
+    TTF_Font *font = TTF_OpenFont("caviar.ttf", 12);
     if (!font)
         std::cout << "Couldn't find ttf font." << std::endl;
-    TextSurface = TTF_RenderText_Solid(font, Message, TextColor);
+    TextSurface = TTF_RenderText_Blended_Wrapped(font, Message, TextColor, 150);
     TextTexture = SDL_CreateTextureFromSurface(gRenderer, TextSurface);
     TextRect1.x = pos1; // Center horizontaly
     TextRect1.y = pos2; // Center verticaly
@@ -1362,13 +1472,17 @@ int main( int argc, char* args[] )
 				// player2.move(wall_vec);
 
 				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+				SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );
 				SDL_RenderClear( gRenderer );
 
 				//Render wall
-				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );	
+				SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );	
 				//Render objects
-				if(player1.getMap() == 1)
+				if(player1.getMap() == 0)
+				{
+					gstartTexture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 1)
 				{
 					gmap1Texture.render( 0, 0 );
 				}
@@ -1380,6 +1494,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 7)
 				{
 					glibraryTexture.render( 0, 0 );
+					player1.update_acad();
 				}
 				else if(player1.getMap() == 8)
 				{
@@ -1410,25 +1525,40 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 10)
 				{
 					gamulTexture.render( 0, 0 );
+					player1.update_health();
 				}
 				else if(player1.getMap() == 11)
 				{
 					gmaingroundTexture.render( 0, 0 );
+					player1.update_enjoy();
 				}
 				else if(player1.getMap() == 12)
 				{
 					gathelticsTexture.render( 0, 0 );
+					player1.update_enjoy();
 				}
-								
-				player1.render();
-
+				else if(player1.getMap() == 13)
+				{
+					glhcTexture.render( 0, 0 );
+				}
+				else if(player1.getMap() == 14)
+				{
+					ghospTexture.render( 0, 0 );
+				}
 				
-
+				if (player1.getMap()!=0)
+				{
+					player1.render();
+					player1.decrease_health();
+				}
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				std::string str1= "[Health_index - "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index - "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus - "+std::to_string(player1.getAcad())+"]";
+				std::string str1= "[Health_index = "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player1.getAcad())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
 				// player2.render();
-				rect_text1(c1,0,550);
+				if (player1.getMap()!=0)
+				{
+					rect_text1(c1,0,550);
+				}
 				// player1.render();
 				// std::string str2= "Player 1 ycord - "+std::to_string(player1.getYcord());
 				// char* c1 = const_cast<char*>(str2.c_str());
@@ -1439,6 +1569,17 @@ int main( int argc, char* args[] )
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 				
+				serversetup();
+				string temp = to_string(player1.getMap()) + " " + to_string(player1.getXcord()) + " " + to_string(player1.getYcord()) + " " + to_string(player1.getHealth()) + " " + to_string(player1.getEnjoy()) + " " + to_string(player1.getAcad());
+				char* c = const_cast<char*>(temp.c_str());
+				string x1 = serversendmessage(c);
+				serverreadbuffer();			
+				// string x2 = serversendmessage("Hello from client - 2");
+				// string x3 = sendmessage("Hello from client - 3");
+				// string x4 = sendmessage("Hello from client - 4");
+				// string x5 = sendmessage("Hello from client - 5");
+				// string x6 = sendmessage("Hello from client - 6");
+				// string x7 = serversendmessage("Hello from client - 7");
 				
 			}
 		}
