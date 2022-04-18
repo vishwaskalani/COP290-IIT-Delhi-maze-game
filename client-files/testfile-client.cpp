@@ -825,7 +825,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( enjoyment_index>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -834,7 +834,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( enjoyment_index>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -1905,31 +1905,33 @@ int main( int argc, char* args[] )
 							
 						}
 				}
-				// else if(player2.getwinAt() == true)
-				// {
-				// 	gloseTexture.render(gRenderer, 0, 0 );
-				// }
+				if(player2.getwinAt() == true)
+				{
+					gloseTexture.render(gRenderer, 0, 0 );
+				}
 				
-				if (player1.getMap()!=0 && player1.getMap()!=16)
+				if (player2.getwinAt() == false && player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					player1.render();
 				}
 
-				if (player1.getMap()==player2.getMap())
+				if (player2.getwinAt() == false && player1.getMap()==player2.getMap())
 				{
 					gPlayer2Texture.render(gRenderer, player2.getXcord(), player2.getYcord() );					
 				}
-				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				// std::cout<<player1.PLAYER1_VEL<<std::endl;
-				std::string str1= "[H1 = "+std::to_string(player1.getHealth())+"] "+"[H2 = "+std::to_string(player2.getHealth())+"] \n"+
-				"[E1 = "+std::to_string(player1.getEnjoy())+"] "+"[E2 = "+std::to_string(player2.getEnjoy())+"] \n"+
-				"[A1 = "+std::to_string(player1.getAcad())+"] "+"[A2 = "+std::to_string(player2.getAcad())+"] \n"+
-				"[M1 = "+std::to_string(player1.getMoney())+"]"+"[M2= "+std::to_string(player2.getMoney())+"]";
-				char* c1 = const_cast<char*>(str1.c_str());
-				// player2.render(gRenderer,);
-				if (player1.getMap()!=0 && player1.getMap()!=16)
-				{
-					rect_text1(c1,0,537);
+				if(player2.getwinAt() == false && player1.getMap()!=0 && player1.getMap()!=16)
+					{int a = SDL_RenderFillRect(gRenderer,&TextRect1);
+					// std::cout<<player1.PLAYER1_VEL<<std::endl;
+					std::string str1= "[H1 = "+std::to_string(player1.getHealth())+"] "+"[H2 = "+std::to_string(player2.getHealth())+"] \n"+
+					"[E1 = "+std::to_string(player1.getEnjoy())+"] "+"[E2 = "+std::to_string(player2.getEnjoy())+"] \n"+
+					"[A1 = "+std::to_string(player1.getAcad())+"] "+"[A2 = "+std::to_string(player2.getAcad())+"] \n"+
+					"[M1 = "+std::to_string(player1.getMoney())+"]"+"[M2= "+std::to_string(player2.getMoney())+"]";
+					char* c1 = const_cast<char*>(str1.c_str());
+					// player2.render(gRenderer,);
+					if ( player1.getMap()!=16 && player2.getwinAt() == false)
+					{
+						rect_text1(c1,0,537);
+					}
 				}
 				SDL_SetRenderDrawColor( gRenderer, 51,0,102, 255 );	
 				// int b = SDL_RenderFillRect(gRenderer,&TextRect2);
@@ -1943,9 +1945,15 @@ int main( int argc, char* args[] )
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
+				std::string temp;				
+				if(player1.getwinAt() == true)
+				{
+					temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney())+" "+std::to_string(1)+" ";
+				}
+				else if (player1.getwinAt() == false){
+					temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney())+" "+std::to_string(0)+" ";
+				}
 				
-				
-				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney())+" ";
 				char* c = const_cast<char*>(temp.c_str());
 				mybuff = clientreadbuffer();	
 				clientsendmessage(c);
