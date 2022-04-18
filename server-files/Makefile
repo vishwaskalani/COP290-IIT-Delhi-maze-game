@@ -16,4 +16,4 @@ OBJ_NAME = testfile.out
 
 #This is the target that compiles our executable
 all : $(OBJS)
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) server.cpp 
+	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) server.cpp classfiles/player2.cpp classfiles/ltexture.cpp

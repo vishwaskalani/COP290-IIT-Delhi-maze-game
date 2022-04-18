@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 18 01:05:21 2022
+# Make data base, printed on Tue Apr 19 00:46:30 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-62a79657-1a1d-44b7-a5f7-285cb765fa04.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-79fde227-6bed-40ac-8332-df45bd140265.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -107,7 +107,7 @@ MAKECMDGOALS := all
 # makefile (from 'Makefile', line 9)
 COMPILER_FLAGS = -w
 # environment
-PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PATH = /home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 5)
@@ -172,10 +172,8 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=82/1024=8%, Rehash=0, Collisions=8/116=7%
+# Load=81/1024=8%, Rehash=0, Collisions=8/115=7%
 
 # Pattern-specific Variable Values
 
@@ -183,9 +181,9 @@ MOTD_SHOWN = update-motd
 
 # Directories
 
-# . (device 2080, inode 55540): 17 files, no impossibilities.
+# . (device 2080, inode 55540): 19 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -196,7 +194,7 @@ MOTD_SHOWN = update-motd
 # Not a target:
 testfile-server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-18 01:02:08.743800328
+#  Last modified 2022-04-19 00:45:04.108415293
 #  File has been updated.
 #  Successfully updated.
 
@@ -226,7 +224,7 @@ all: testfile-server.cpp
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=2/16=12%
 #  recipe to execute (from 'Makefile', line 19):
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) server.cpp 
+	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) server.cpp classfiles/player2.cpp classfiles/ltexture.cpp
 
 # Not a target:
 .SUFFIXES:
@@ -237,7 +235,7 @@ all: testfile-server.cpp
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-17 15:47:20.176427167
+#  Last modified 2022-04-19 00:45:47.448414964
 #  File has been updated.
 #  Successfully updated.
 
@@ -255,12 +253,12 @@ Makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 224 B / avg = 10 B
-# current buf: size = 8162 B / used = 224 B / count = 22 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 245 B / avg = 10 B
+# current buf: size = 8162 B / used = 245 B / count = 24 / avg = 10 B
 
-# strcache performance: lookups = 30 / hit rate = 26%
+# strcache performance: lookups = 32 / hit rate = 25%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Mon Apr 18 01:05:21 2022
+# Load=24/8192=0%, Rehash=0, Collisions=1/32=3%
+# Finished Make data base on Tue Apr 19 00:46:30 2022
 
  

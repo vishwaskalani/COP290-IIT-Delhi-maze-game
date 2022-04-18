@@ -1,5 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/ishaan/COP290/COP-game'
-g++ testfile-server.cpp -w -lSDL2 -lSDL2_image -lSDL2_ttf -o testfile.out server.cpp 
+g++ testfile-server.cpp -w -lSDL2 -lSDL2_image -lSDL2_ttf -o testfile.out server.cpp classfiles/player2.cpp classfiles/ltexture.cpp
 make: Leaving directory '/home/ishaan/COP290/COP-game'
  

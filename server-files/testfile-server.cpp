@@ -2,7 +2,7 @@
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, and strings
-#include "server.h"
+// #include "server.h"
 #include <SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<SDL2/SDL_ttf.h>
@@ -10,57 +10,13 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include <bits/stdc++.h>
 #include <vector>
+#include "server.h"
+#include "classfiles/player2.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 600;
 char* mybuff;
-
-//Texture wrapper class
-class LTexture
-{
-	public:
-		//Initializes variables
-		LTexture();
-
-		//Deallocates memory
-		~LTexture();
-
-		//Loads image at specified path
-		bool loadFromFile( std::string path );
-		
-		#if defined(SDL_TTF_MAJOR_VERSION)
-		//Creates image from font string
-		bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
-		#endif
-
-		//Deallocates texture
-		void free();
-
-		//Set color modulation
-		void setColor( Uint8 red, Uint8 green, Uint8 blue );
-
-		//Set blending
-		void setBlendMode( SDL_BlendMode blending );
-
-		//Set alpha modulation
-		void setAlpha( Uint8 alpha );
-		
-		//Renders texture at given point
-		void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
-
-		//Gets image dimensions
-		int getWidth();
-		int getHeight();
-
-	private:
-		//The actual hardware texture
-		SDL_Texture* mTexture;
-
-		//Image dimensions
-		int mWidth;
-		int mHeight;
-};
 
 //The application time based timer
 class LTimer
@@ -113,13 +69,11 @@ class Player1
 
 		//Moves the player1
 		void move(std::vector<SDL_Rect> wall_vec);
-		void update_health();
-		void decrease_health();
-		void update_acad();
-		void update_enjoy();
+		void update_health(float amount);
+		void update_acad(float amount);
+		void update_enjoy(float amount);
 		void update_vel();
-		void update_money();
-		void spend_money();
+		void update_money(float amount);
 
 		//Shows the player1 on the screen
 		void render();
@@ -132,6 +86,9 @@ class Player1
 		int getEnjoy();
 		int getMoney();
 		bool getYulu();
+		bool getsac_act();
+		bool gethours();
+		bool getwinAt();
 
 		std::vector<SDL_Rect> get_walls();
 		// std::vector<std::vector<int>> get_health_incr_areas();
@@ -139,6 +96,10 @@ class Player1
     private:
 		//The X and Y offsets of the player1
 		float health_index,acadStatus,enjoyment_index,money;
+
+		bool sac_act,hours;
+
+		bool winAt;
 
 		int mPosX, mPosY;
 
@@ -150,67 +111,6 @@ class Player1
 		//Dot's collision box
 		SDL_Rect mCollider;
 };
-//The player1 that will move around on the screen
-class Player2
-{
-    public:
-		Player2();
-		int getMap();
-		int getXcord();
-		int getYcord();
-		int getHealth();
-		int getAcad();
-		int getEnjoy();
-		int getMoney();
-		void assign_param();
-		void render();
-		
-
-    private:
-		//The X and Y offsets of the player1
-		float health_index,acadStatus,enjoyment_index,money;
-
-		int mPosX, mPosY;
-
-		int mMap;
-		
-		
-};
-
-
-//The player1 that will move around on the screen
-// class Player2
-// {
-//     public:
-// 		//The dimensions of the player1
-// 		static const int PLAYER2_WIDTH = 20;
-// 		static const int PLAYER2_HEIGHT = 15;
-
-// 		//Maximum axis velocity of the player1
-// 		static const int PLAYER2_VEL = 2;
-
-// 		//Initializes the variables
-// 		Player2();
-
-// 		//Takes key presses and adjusts the player1's velocity
-// 		void handleEvent( SDL_Event& e );
-
-// 		//Moves the player1
-// 		void move(std::vector<SDL_Rect>& wall_vec);
-
-// 		//Shows the player1 on the screen
-// 		void render();
-
-//     private:
-// 		//The X and Y offsets of the player1
-// 		int mPosX, mPosY;
-
-// 		//The velocity of the player1
-// 		int mVelX, mVelY;
-
-// 		//Dot's collision box
-// 		SDL_Rect mCollider;
-// };
 
 
 //Starts up SDL and creates window
@@ -246,10 +146,23 @@ LTexture gathelticsTexture;
 LTexture gmaingroundTexture;
 LTexture gamulTexture;
 LTexture gsacTexture;
+LTexture gsac1Texture;
+LTexture gsac2Texture;
+LTexture gsac3Texture;
 LTexture glhcTexture;
 LTexture ghospTexture;
 LTexture gbankTexture;
 LTexture gstartTexture;
+LTexture gyuluTexture;
+LTexture gbackTexture;
+LTexture gloseTexture;
+LTexture gmg1Texture;
+LTexture gmg2Texture;
+LTexture gmg3Texture;
+//Walking animation
+const int WALKING_ANIMATION_FRAMES = 4;
+SDL_Rect gSpriteClips[ WALKING_ANIMATION_FRAMES ];
+LTexture gSpriteSheetTexture;
 
 SDL_Color TextColor = { 255, 255, 255, 255}; // Red SDL color.
 TTF_Font* Font; // The font to be loaded from the ttf file.
@@ -258,69 +171,6 @@ SDL_Texture* TextTexture; // The font texture prepared for render.
 SDL_Rect TextRect1; // Text rectangle area with the position for the texture text.
 SDL_Rect TextRect2; // Text rectangle area with the position for the texture text.
 SDL_Rect TextRect3; // Text rectangle area with the position for the texture text.
-
-LTexture::LTexture()
-{
-	//Initialize
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
-}
-
-LTexture::~LTexture()
-{
-	//Deallocate
-	free();
-}
-
-bool LTexture::loadFromFile( std::string path )
-{
-	//Get rid of preexisting texture
-	free();
-
-	//The final texture
-	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	if( loadedSurface == NULL )
-	{
-		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	}
-	else
-	{
-		//Color key image
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
-
-		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
-		if( newTexture == NULL )
-		{
-			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-		}
-		else if (path == "Resources/map1.png" || path == "Resources/minimart.png" || path == "Resources/library.png" || path == "Resources/delhi16.png" || path == "Resources/map2.png" || path == "Resources/map3.png"|| path == "Resources/map4.png"|| path == "Resources/map5.png"
-		|| path == "Resources/mainground.png" || path == "Resources/atheltics.png" || path == "Resources/sac.png" || path == "Resources/amul.png"|| path == "Resources/lhc.png"|| path == "Resources/start.png"||path == "Resources/hosp.png" ||path == "Resources/bank.png")
-		{
-			//Get image dimensions
-			//Get image dimensions
-			mWidth = SCREEN_WIDTH;
-			mHeight = SCREEN_HEIGHT;
-		}		
-		else
-		{
-			//Get image dimensions
-			mWidth = loadedSurface->w/30;
-			mHeight = loadedSurface->h/30;
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
-	}
-
-	//Return success
-	mTexture = newTexture;
-	return mTexture != NULL;
-}
 
 // #if defined(SDL_TTF_MAJOR_VERSION)
 // bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
@@ -359,63 +209,6 @@ bool LTexture::loadFromFile( std::string path )
 // }
 // #endif
 
-void LTexture::free()
-{
-	//Free texture if it exists
-	if( mTexture != NULL )
-	{
-		SDL_DestroyTexture( mTexture );
-		mTexture = NULL;
-		mWidth = 0;
-		mHeight = 0;
-	}
-}
-
-void LTexture::setColor( Uint8 red, Uint8 green, Uint8 blue )
-{
-	//Modulate texture rgb
-	SDL_SetTextureColorMod( mTexture, red, green, blue );
-}
-
-void LTexture::setBlendMode( SDL_BlendMode blending )
-{
-	//Set blending function
-	SDL_SetTextureBlendMode( mTexture, blending );
-}
-		
-void LTexture::setAlpha( Uint8 alpha )
-{
-	//Modulate texture alpha
-	SDL_SetTextureAlphaMod( mTexture, alpha );
-}
-
-void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
-{
-	//Set rendering space and render to screen
-	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-
-	//Set clip rendering dimensions
-	if( clip != NULL )
-	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
-	}
-
-	//Render to screen
-	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
-}
-
-int LTexture::getWidth()
-{
-	return mWidth;
-}
-
-int LTexture::getHeight()
-{
-	return mHeight;
-}
-
-
 Player1::Player1()
 {
     //Initialize the offsets
@@ -426,6 +219,9 @@ Player1::Player1()
 	acadStatus = 0.0;
 	money = 100.0;
 	Yulu = false;
+	winAt = false;
+	sac_act = false;
+	hours = false;
 
 	//Set collision box dimension
 	mCollider.w = PLAYER1_WIDTH;
@@ -447,21 +243,8 @@ Player2::Player2()
 	acadStatus = 0.0;
 	money = 100.0;    //Initialize the velocity
 	mMap = 0;		
+	winAt = false;
 }
-// Player2::Player2()
-// {
-//     //Initialize the offsets
-//     mPosX = 0;
-//     mPosY = 0;
-
-// 	//Set collision box dimension
-// 	mCollider.w = PLAYER2_WIDTH;
-// 	mCollider.h = PLAYER2_HEIGHT;
-
-//     //Initialize the velocity
-//     mVelX = 0;
-//     mVelY = 0;
-// }
 
 void Player1::handleEvent( SDL_Event& e )
 {
@@ -490,6 +273,8 @@ void Player1::handleEvent( SDL_Event& e )
 							mMap = 14;
 							mPosX = 0;
 							mPosY = 0;
+							Yulu = false;
+							PLAYER1_VEL =4;
 							break;
 						}
 			}
@@ -547,9 +332,52 @@ void Player1::handleEvent( SDL_Event& e )
 		if ((mPosX >=525) && (mPosX <= 590) && (mPosY<=370) && (mPosY>=300) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
-							mMap = 9;
+							mMap = 21;
 							mPosX = 857; 
 							mPosY = 580; 
+							break;
+						}
+			}
+		//chosing events
+		if ((mMap == 21)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 9;
+							sac_act = true;
+							break;
+							case SDLK_t: 
+							mMap = 22;
+							break;
+							case SDLK_s: 
+							mMap = 23;
+							break;
+						}
+			}
+		if ((mMap == 22)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 9;
+							sac_act = true;
+							break;
+							case SDLK_r: 
+							mMap = 21;
+							break;
+							case SDLK_s: 
+							mMap = 23;
+							break;
+						}
+			}
+		if ((mMap == 23)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 9;
+							sac_act = true;
+							break;
+							case SDLK_t: 
+							mMap = 22;
+							break;
+							case SDLK_r: 
+							mMap = 21;
 							break;
 						}
 			}
@@ -567,10 +395,62 @@ void Player1::handleEvent( SDL_Event& e )
 		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=112) && (mPosY<=162) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e: 
-							mMap = 11;
+							mMap = 18;
 							mPosX = 920; 
 							mPosY = 560; 
 							break;
+						}
+			}
+		//chosing choice of nss , ncc , nso
+		if ((mMap == 18)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 11;
+							hours = true;
+							break;
+							case SDLK_s: 
+							mMap = 19;
+							break;
+							case SDLK_c: 
+							mMap = 20;
+							break;
+							// case SDLK_LEFT: 
+							// mMap = 20;
+							// break;
+						}
+			}
+		if ((mMap == 19)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 11;
+							hours = true;
+							break;
+							case SDLK_c: 
+							mMap = 20;
+							break;
+							case SDLK_o: 
+							mMap = 18;
+							break;
+							// case SDLK_LEFT: 
+							// mMap = 18;
+							// break;
+						}
+			}
+		if ((mMap == 20)){
+				switch( e.key.keysym.sym ){
+							case SDLK_RETURN: 
+							mMap = 11;
+							hours = true;
+							break;
+							case SDLK_o: 
+							mMap = 18;
+							break;
+							case SDLK_s: 
+							mMap = 19;
+							break;
+							// case SDLK_LEFT: 
+							// mMap = 19;
+							// break;
 						}
 			}
 		//main ground to map3
@@ -660,6 +540,26 @@ void Player1::handleEvent( SDL_Event& e )
 							mMap = 4;
 							mPosX = 680; 
 							mPosY = 166; 
+							break;
+						}
+			}
+		//map4 to lhc
+		if ((mPosX >=572) && (mPosX<=612) && (mPosY>=173) && (mPosY<=244) && (mMap == 4)){
+				switch( e.key.keysym.sym ){
+							case SDLK_e: 
+							mMap = 13;
+							mPosX = 930; 
+							mPosY = 578; 
+							break;
+						}
+			}
+		//lhc to map4 
+		if ((mPosX >=850) && (mPosY>=515)  && (mMap == 13)){
+				switch( e.key.keysym.sym ){
+							case SDLK_o: 
+							mMap = 4;
+							mPosX = 580; 
+							mPosY = 224; 
 							break;
 						}
 			}
@@ -924,6 +824,24 @@ void Player1::handleEvent( SDL_Event& e )
 							break; 
 						}
 			}
+		//Map 5 to exit win
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+				switch( e.key.keysym.sym ){
+							case SDLK_w: 
+							winAt = true;
+							mMap = 16;
+							break; 
+						}
+			}
+		//Map 5 to exit win
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+				switch( e.key.keysym.sym ){
+							case SDLK_w: 
+							winAt = true;
+							mMap = 16;
+							break; 
+						}
+			}
 
         if(e.key.repeat == 0 ){
 			switch( e.key.keysym.sym )
@@ -1036,12 +954,12 @@ void Player1::move(std::vector<SDL_Rect> wall_vec )
 void Player1::render()
 {
     //Show the player1
-	gPlayer1Texture.render( mPosX, mPosY );
-}
-void Player2::render()
-{
-    //Show the player1
-	gPlayer2Texture.render( mPosX, mPosY );
+	if(Yulu == false){
+		gPlayer1Texture.render(gRenderer, mPosX, mPosY );
+	}else{
+		gyuluTexture.render(gRenderer, mPosX, mPosY );
+	}
+	
 }
 
 int Player1::getMap()
@@ -1061,46 +979,63 @@ bool Player1::getYulu()
 {
 	return Yulu;
 }
+bool Player1::getsac_act()
+{
+	return sac_act;
+}
+bool Player1::gethours()
+{
+	return hours;
+}
+bool Player1::getwinAt()
+{
+	return winAt;
+}
 // int Player1::getVel()
 // {
 // 	return PLAYER1_VEL;
 // }
-int Player2::getMap()
-{
-	return mMap;
-}
 
-int Player2::getXcord()
-{
-	return mPosX;
-}
-int Player2::getYcord()
-{
-	return mPosY;
-}
-
-void Player1::update_health(){
-	health_index+=0.02;
+void Player1::update_health(float amount){
+	health_index+=amount;
 	}
-void Player1::decrease_health(){
-	if(mMap!=14){
-		health_index-=0.01;
-		}	
+// void Player1::decrease_health(){
+// 	if(mMap!=14){
+// 		health_index-=0.01;
+// 		}	
+// 	else{
+// 		health_index+=0.01;
+// 		}
+// 	}
+void Player1::update_acad(float amount){
+	if(amount<0){
+		if(acadStatus>0){
+		acadStatus+=amount;
+		}
+	}	
 	else{
-		health_index+=0.01;
+		acadStatus+=amount;	
 		}
 	}
-void Player1::update_acad(){
-	acadStatus+=0.02;
+void Player1::update_enjoy(float amount){
+	if(amount<0){
+		if(enjoyment_index>0){
+		enjoyment_index+=amount;
+		}
+	}	
+	else{
+		enjoyment_index+=amount;	
+		}
 	}
-void Player1::update_enjoy(){
-	enjoyment_index+=0.02;
-	}
-void Player1::update_money(){
-	money+=1;
-	}
-void Player1::spend_money(){
-	money-=1;
+void Player1::update_money(float amount){
+	if(amount<0){
+		if(money>0){
+		money+=amount;
+		}
+	}	
+	else{
+		money+=amount;	
+		}
 	}
 
 int Player1::getHealth()
@@ -1119,48 +1054,6 @@ int Player1::getMoney()
 {
 	return money;
 }
-int Player2::getHealth()
-{
-	return health_index;
-}
-int Player2::getAcad()
-{
-	return acadStatus;
-}
-int Player2::getEnjoy()
-{
-	return enjoyment_index;
-}
-int Player2::getMoney()
-{
-	return money;
-}
-void Player2::assign_param(){
-	std::string strp = std::string(mybuff);
-	std::istringstream ss(strp);
-	std::string word; 
-	ss>>word;
-	mMap = std::stoi(word);
-	ss>>word;
-	mPosX = std::stoi(word);
-	ss>>word;
-	mPosY = std::stoi(word);
-	ss>>word;
-	health_index = std::stoi(word);
-	ss>>word;
-	enjoyment_index = std::stoi(word);
-	ss>>word;
-	acadStatus = std::stoi(word);
-	ss>>word;
-	money = std::stoi(word);
-}
-
-// }
-// void Player2::render()
-// {
-//     //Show the player2
-// 	gPlayer2Texture.render( mPosX, mPosY );
-// }
 
 bool init()
 {
@@ -1182,7 +1075,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Tour De La IIT", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -1222,93 +1115,158 @@ bool loadMedia()
 	bool success = true;
 
 	//Load player1 texture
-	if( !gPlayer1Texture.loadFromFile( "Resources/parti1.png" ) )
+	if( !gPlayer1Texture.loadFromFile(gRenderer, "Resources/parti1.png" ) )
 	{
 		printf( "Failed to load player1 texture!\n" );
 		success = false;
 	}
-	if( !gPlayer2Texture.loadFromFile( "Resources/parti2.png" ) )
+	if( !gPlayer2Texture.loadFromFile(gRenderer, "Resources/parti2.png" ) )
 	{
 		printf( "Failed to load player2 texture!\n" );
 		success = false;
 	}
-	// if( !gPlayer2Texture.loadFromFile( "Resources/player2.png" ) )
+	// if( !gPlayer2Texture.loadFromFile(gRenderer, "Resources/player2.png" ) )
 	// {
 	// 	printf( "Failed to load player2 texture!\n" );
 	// 	success = false;
 	// }
 
-	if( !gmap1Texture.loadFromFile( "Resources/map1.png" ) )
+	if( !gmap1Texture.loadFromFile(gRenderer, "Resources/map1.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gminimartTexture.loadFromFile( "Resources/minimart.png" ) )
+	if( !gminimartTexture.loadFromFile(gRenderer, "Resources/minimart.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !glibraryTexture.loadFromFile( "Resources/library.png" ) )
+	if( !glibraryTexture.loadFromFile(gRenderer, "Resources/library.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gdelhi16Texture.loadFromFile( "Resources/delhi16.png" ) )
+	if( !gdelhi16Texture.loadFromFile(gRenderer, "Resources/delhi16.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap2Texture.loadFromFile( "Resources/map2.png" ) )
+	if( !gmap2Texture.loadFromFile(gRenderer, "Resources/map2.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap3Texture.loadFromFile( "Resources/map3.png" ) )
+	if( !gmap3Texture.loadFromFile(gRenderer, "Resources/map3.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap4Texture.loadFromFile( "Resources/map4.png" ) )
+	if( !gmap4Texture.loadFromFile(gRenderer, "Resources/map4.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if( !gmap5Texture.loadFromFile( "Resources/map5.png" ) )
+	if( !gmap5Texture.loadFromFile(gRenderer, "Resources/map5.png" ) )
 	{
 		printf( "Failed to load map1 texture!\n" );
 		success = false;
 	}
-	if (!gmaingroundTexture.loadFromFile( "Resources/mainground.png")){
+	if (!gmaingroundTexture.loadFromFile(gRenderer, "Resources/mainground.png")){
 		printf("Failed to load mainground texture!\n");
 		success = false;
 	}
-	if (!gathelticsTexture.loadFromFile( "Resources/atheltics.png")){
+	if (!gathelticsTexture.loadFromFile(gRenderer, "Resources/atheltics.png")){
 		printf("Failed to load atheltics texture!\n");
 		success = false;
 	}
-	if (!gamulTexture.loadFromFile( "Resources/amul.png")){
+	if (!gamulTexture.loadFromFile(gRenderer, "Resources/amul.png")){
 		printf("Failed to load amul texture!\n");
 		success = false;
 	}
-	if (!gsacTexture.loadFromFile( "Resources/sac.png")){
+	if (!gsacTexture.loadFromFile(gRenderer, "Resources/sac.png")){
 		printf("Failed to load sac texture!\n");
 		success = false;
 	}
-	if (!glhcTexture.loadFromFile( "Resources/lhc.png")){
+	if (!glhcTexture.loadFromFile(gRenderer, "Resources/lhc.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!ghospTexture.loadFromFile( "Resources/hosp.png")){
+	if (!ghospTexture.loadFromFile(gRenderer, "Resources/hosp.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!gbankTexture.loadFromFile( "Resources/bank.png")){
+	if (!gbankTexture.loadFromFile(gRenderer, "Resources/bank.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
 	}
-	if (!gstartTexture.loadFromFile( "Resources/start.png")){
+	if (!gstartTexture.loadFromFile(gRenderer, "Resources/start.png")){
 		printf("Failed to load lhc texture!\n");
 		success = false;
+	}
+	if (!gyuluTexture.loadFromFile(gRenderer, "Resources/yuluparti1.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gbackTexture.loadFromFile(gRenderer, "Resources/winback.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gloseTexture.loadFromFile(gRenderer, "Resources/loose.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gmg1Texture.loadFromFile(gRenderer, "Resources/mg1.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gmg2Texture.loadFromFile(gRenderer, "Resources/mg2.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gmg3Texture.loadFromFile(gRenderer, "Resources/mg3.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gsac1Texture.loadFromFile(gRenderer, "Resources/sac1.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gsac2Texture.loadFromFile(gRenderer, "Resources/sac2.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	if (!gsac3Texture.loadFromFile(gRenderer, "Resources/sac3.png")){
+		printf("Failed to load lhc texture!\n");
+		success = false;
+	}
+	//Load sprite sheet texture
+	if( !gSpriteSheetTexture.loadFromFile(gRenderer, "Resources/foo.png" ) )
+	{
+		printf( "Failed to load walking animation texture!\n" );
+		success = false;
+	}
+	else
+	{
+		//Set sprite clips
+		gSpriteClips[ 0 ].x =   0;
+		gSpriteClips[ 0 ].y =   0;
+		gSpriteClips[ 0 ].w =  64;
+		gSpriteClips[ 0 ].h = 205;
+
+		gSpriteClips[ 1 ].x =  64;
+		gSpriteClips[ 1 ].y =   0;
+		gSpriteClips[ 1 ].w =  64;
+		gSpriteClips[ 1 ].h = 205;
+		
+		gSpriteClips[ 2 ].x = 128;
+		gSpriteClips[ 2 ].y =   0;
+		gSpriteClips[ 2 ].w =  64;
+		gSpriteClips[ 2 ].h = 205;
+
+		gSpriteClips[ 3 ].x = 192;
+		gSpriteClips[ 3 ].y =   0;
+		gSpriteClips[ 3 ].w =  64;
+		gSpriteClips[ 3 ].h = 205;
 	}
 
 	return success;
@@ -1337,6 +1295,17 @@ void close()
 	ghospTexture.free();
 	gbankTexture.free();
 	gstartTexture.free();
+	gyuluTexture.free();
+	gbackTexture.free();
+	gloseTexture.free();
+	gmg1Texture.free();
+	gmg2Texture.free();
+	gmg3Texture.free();
+	gsac1Texture.free();
+	gsac2Texture.free();
+	gsac3Texture.free();
+	//Free loaded images
+	gSpriteSheetTexture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -1686,6 +1655,7 @@ void rect_text2(const char* Message,int pos1,int pos2){
     TTF_Quit();
 	SDL_RenderCopy(gRenderer, TextTexture, NULL, &TextRect2); // Add text to render queue.
     SDL_RenderPresent(gRenderer); // Render everything that's on the queue.
+	// SDL_RenderClear( gRenderer );
 
 }
 
@@ -1742,113 +1712,234 @@ int main( int argc, char* args[] )
 				// player1.update_health(player1.get_health_incr_areas());
 				// player2.move(wall_vec);
 
-				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );
-				SDL_RenderClear( gRenderer );
+				if(player1.getMap()!=16){
+					//Clear screen
+					SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );
+					SDL_RenderClear( gRenderer );
 
-				//Render wall
-				SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );	
-				//Render objects
+					//Render wall
+					SDL_SetRenderDrawColor( gRenderer, 102,0,51, 255 );	
+					//Render objects
+				}
+				if(player1.getYulu() == true){
+						player1.update_money(-0.05);
+					}
+				
 				if(player1.getMap() == 0)
 				{
-					gstartTexture.render( 0, 0 );
+					gstartTexture.render(gRenderer, 0, 0 );
 				}
 				else if(player1.getMap() == 1)
 				{
-					gmap1Texture.render( 0, 0 );
+					gmap1Texture.render(gRenderer, 0, 0 );
+					if(player1.getYulu() == false){
+						player1.update_health(-0.01);
+					}
+					
 				}
 				else if(player1.getMap() == 6)
 				{
-					gminimartTexture.render( 0, 0 );
-					player1.update_enjoy();
+					gminimartTexture.render(gRenderer, 0, 0 );
+					player1.update_money(-0.1);
+					player1.update_health(-0.01);
 				}
 				else if(player1.getMap() == 7)
 				{
-					glibraryTexture.render( 0, 0 );
-					player1.update_acad();
+					glibraryTexture.render(gRenderer, 0, 0 );
+					player1.update_acad(0.02);
+					player1.update_enjoy(-0.01);
 				}
 				else if(player1.getMap() == 8)
 				{
-					gdelhi16Texture.render( 0, 0 );
-					player1.update_health();
+					gdelhi16Texture.render(gRenderer, 0, 0 );
+					player1.update_health(0.02);
+					player1.update_money(-0.1);
 				}
 				else if(player1.getMap() == 2)
 				{
-					gmap2Texture.render( 0, 0 );
+					gmap2Texture.render(gRenderer, 0, 0 );
+					if(player1.getYulu() == false){
+						player1.update_health(-0.01);
+					}
 				}
 				else if(player1.getMap() == 3)
 				{
-					gmap3Texture.render( 0, 0 );
+					gmap3Texture.render(gRenderer, 0, 0 );
+					if(player1.getYulu() == false){
+						player1.update_health(-0.01);
+					}
 				}
 				else if(player1.getMap() == 4)
 				{
-					gmap4Texture.render( 0, 0 );
+					gmap4Texture.render(gRenderer, 0, 0 );
+					if(player1.getYulu() == false){
+						player1.update_health(-0.01);
+					}
 				}
 				else if(player1.getMap() == 5)
 				{
-					gmap5Texture.render( 0, 0 );
+					gmap5Texture.render(gRenderer, 0, 0 );
+					if(player1.getYulu() == false){
+						player1.update_health(-0.01);
+					}
 				}
 				else if(player1.getMap() == 9)
 				{
-					gsacTexture.render( 0, 0 );
-					player1.update_enjoy();
+					gsacTexture.render(gRenderer, 0, 0 );
+					player1.update_health(-0.01);
+					player1.update_enjoy(0.02);
 				}
 				else if(player1.getMap() == 10)
 				{
-					gamulTexture.render( 0, 0 );
-					player1.update_health();
+					gamulTexture.render(gRenderer, 0, 0 );
+					player1.update_health(0.02);
+					player1.update_enjoy(0.01);
+					player1.update_money(-0.1);
 				}
 				else if(player1.getMap() == 11)
 				{
-					gmaingroundTexture.render( 0, 0 );
-					player1.update_enjoy();
+					gmaingroundTexture.render(gRenderer, 0, 0 );
+					player1.update_enjoy(0.02);
+					player1.update_health(-0.01);
+					player1.update_acad(-0.01);
 				}
 				else if(player1.getMap() == 12)
 				{
-					gathelticsTexture.render( 0, 0 );
-					player1.update_enjoy();
+					gathelticsTexture.render(gRenderer, 0, 0 );
+					player1.update_enjoy(0.02);
+					player1.update_health(-0.01);
+					player1.update_acad(-0.01);
 				}
 				else if(player1.getMap() == 13)
 				{
-					glhcTexture.render( 0, 0 );
+					glhcTexture.render(gRenderer, 0, 0 );
+					player1.update_enjoy(-0.01);
+					player1.update_health(-0.01);
+					player1.update_acad(0.02);
 				}
 				else if(player1.getMap() == 14)
 				{
-					ghospTexture.render( 0, 0 );
+					ghospTexture.render(gRenderer, 0, 0 );
+					player1.update_health(0.01);
 				}
 				else if(player1.getMap() == 15)
 				{
-					gbankTexture.render( 0, 0 );
-					player1.update_money();
+					gbankTexture.render(gRenderer, 0, 0 );
+					player1.update_money(0.5);
+					player1.update_enjoy(-0.01);
 				}
+				else if(player1.getMap() == 18)
+				{
+					gmg1Texture.render(gRenderer, 0, 0 );
+					player1.update_enjoy(0.02);
+					player1.update_health(-0.01);
+					player1.update_acad(-0.01);
+				}
+				else if(player1.getMap() == 19)
+				{
+					gmg2Texture.render(gRenderer, 0, 0 );
+					player1.update_enjoy(0.02);
+					player1.update_health(-0.01);
+					player1.update_acad(-0.01);
+				}
+				else if(player1.getMap() == 20)
+				{
+					gmg3Texture.render(gRenderer, 0, 0 );		
+					player1.update_enjoy(0.02);
+					player1.update_health(-0.01);
+					player1.update_acad(-0.01);			
+				}
+				else if(player1.getMap() == 21)
+				{
+					gsac1Texture.render(gRenderer, 0, 0 );	
+					player1.update_health(-0.01);
+					player1.update_enjoy(0.02);						
+				}
+				else if(player1.getMap() == 22)
+				{
+					gsac2Texture.render(gRenderer, 0, 0 );
+					player1.update_health(-0.01);
+					player1.update_enjoy(0.02);				
+				}
+				else if(player1.getMap() == 23)
+				{
+					gsac3Texture.render(gRenderer, 0, 0 );
+					player1.update_health(-0.01);
+					player1.update_enjoy(0.02);				
+				}
+				else if(player1.getMap() == 16){
+						
+						
+						int stop = 0;
+						//Current animation frame
+						int frame = 0;
+						//While application is running
+						while( stop < 20 )
+						{
+							
+
+							//Clear screen
+							
+							SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+							SDL_RenderClear( gRenderer );
+							gbackTexture.render(gRenderer,0,0);
+							
+
+							//Render current frame
+							
+							SDL_Rect* currentClip = &gSpriteClips[ frame / 4 ];
+							gSpriteSheetTexture.render(gRenderer, ( SCREEN_WIDTH - currentClip->w ) / 2, ( SCREEN_HEIGHT - currentClip->h ) / 2, currentClip );
+
+							//Update screen
+							SDL_RenderPresent( gRenderer );
+
+							//Go to next frame
+							++frame;
+
+							//Cycle animation
+							if( frame / 4 >= WALKING_ANIMATION_FRAMES )
+							{
+								frame = 0;
+							}
+							stop ++;
+							
+						}
+				}
+				// else if(player2.getwinAt() == true)
+				// {
+				// 	gloseTexture.render(gRenderer, 0, 0 );
+				// }
 				
-				if (player1.getMap()!=0)
+				if (player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					player1.render();
-					player1.decrease_health();
 				}
+
 				if (player1.getMap()==player2.getMap())
 				{
-					player2.render();
+					gPlayer2Texture.render(gRenderer, player2.getXcord(), player2.getYcord() );					
 				}
 				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				std::cout<<player1.PLAYER1_VEL<<std::endl;
-				std::string str1= "[Health_index = "+std::to_string(player1.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player1.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player1.getAcad())+"] \n"+"[Money = "+std::to_string(player1.getMoney())+"]";
+				// std::cout<<player1.PLAYER1_VEL<<std::endl;
+				std::string str1= "[H1 = "+std::to_string(player1.getHealth())+"] "+"[H2 = "+std::to_string(player2.getHealth())+"] \n"+
+				"[E1 = "+std::to_string(player1.getEnjoy())+"] "+"[E2 = "+std::to_string(player2.getEnjoy())+"] \n"+
+				"[A1 = "+std::to_string(player1.getAcad())+"] "+"[A2 = "+std::to_string(player2.getAcad())+"] \n"+
+				"[M1 = "+std::to_string(player1.getMoney())+"]"+"[M2= "+std::to_string(player2.getMoney())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
-				// player2.render();
-				if (player1.getMap()!=0)
+				// player2.render(gRenderer,);
+				if (player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					rect_text1(c1,0,537);
 				}
 				SDL_SetRenderDrawColor( gRenderer, 51,0,102, 255 );	
-				int b = SDL_RenderFillRect(gRenderer,&TextRect2);
-				std::string str2= "[Health_index = "+std::to_string(player2.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player2.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player2.getAcad())+"] \n"+"[Money = "+std::to_string(player2.getMoney())+"]";
-				char* c2 = const_cast<char*>(str2.c_str());
-				// player2.render();
-				if (player2.getMap()!=0)
-				{
-					rect_text2(c2,0,200);
-				}
+				// int b = SDL_RenderFillRect(gRenderer,&TextRect2);
+				// std::string str2= "[Health_index = "+std::to_string(player2.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player2.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player2.getAcad())+"] \n"+"[Money = "+std::to_string(player2.getMoney())+"]";
+				// char* c2 = const_cast<char*>(str2.c_str());
+				// // player2.render(gRenderer,);
+				// if (player2.getMap()!=0)
+				// {
+				// 	rect_text2(c2,0,200);
+				// }
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
@@ -1858,7 +1949,7 @@ int main( int argc, char* args[] )
 				char* c = const_cast<char*>(temp.c_str());
 				serversendmessage(c);
 				mybuff = serverreadbuffer();	
-				player2.assign_param();	
+				player2.assign_param(mybuff);	
 			}
 		}
 	}
