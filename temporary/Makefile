@@ -1,4 +1,4 @@
-#OBJS specifies which files to compile as part of the project
+#OBJS specifies which testfiles to compile as part of the project
 OBJS = testfile.cpp
 
 #CC specifies which compiler we're using
