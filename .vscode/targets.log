@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Apr 19 00:46:30 2022
+# Make data base, printed on Tue Apr 19 01:04:17 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-79fde227-6bed-40ac-8332-df45bd140265.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-d84c017e-3f1a-474c-a2ca-7fca30cd8bf3.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -91,7 +91,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 LOGNAME = ishaan
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -99,7 +99,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
 MAKELEVEL := 0
 # environment
-PLATFORMIO_PATH = /home/ishaan/.platformio/penv/bin:/home/ishaan/.platformio/penv:/home/ishaan/.platformio/python3/bin:/home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PLATFORMIO_PATH = /home/ishaan/.platformio/python3/bin:/home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -107,7 +107,7 @@ MAKECMDGOALS := all
 # makefile (from 'Makefile', line 9)
 COMPILER_FLAGS = -w
 # environment
-PATH = /home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
+PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 5)
@@ -172,8 +172,10 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
+# environment
+MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=81/1024=8%, Rehash=0, Collisions=8/115=7%
+# Load=82/1024=8%, Rehash=0, Collisions=8/116=7%
 
 # Pattern-specific Variable Values
 
@@ -194,7 +196,7 @@ WSL_DISTRO_NAME = Ubuntu
 # Not a target:
 testfile-server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-19 00:45:04.108415293
+#  Last modified 2022-04-19 01:01:32.538407787
 #  File has been updated.
 #  Successfully updated.
 
@@ -235,7 +237,7 @@ all: testfile-server.cpp
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-19 00:45:47.448414964
+#  Last modified 2022-04-19 01:01:32.688407785
 #  File has been updated.
 #  Successfully updated.
 
@@ -259,6 +261,6 @@ Makefile:
 # strcache performance: lookups = 32 / hit rate = 25%
 # hash-table stats:
 # Load=24/8192=0%, Rehash=0, Collisions=1/32=3%
-# Finished Make data base on Tue Apr 19 00:46:30 2022
+# Finished Make data base on Tue Apr 19 01:04:17 2022
 
  

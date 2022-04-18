@@ -57,4 +57,6 @@ void Player2::assign_param(char* mybuff){
 	acadStatus = std::stoi(word);
 	ss>>word;
 	money = std::stoi(word);
+	ss>>word;
+	if(std::stoi(word) == 1){winAt = true;} else {winAt = false;};
 }

@@ -825,7 +825,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && (enjoyment_index>=70) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -834,7 +834,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && (enjoyment_index>=70) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -868,33 +868,6 @@ void Player1::handleEvent( SDL_Event& e )
     }
 
 }
-// void Player2::handleEvent( SDL_Event& e )
-// {
-//     //If a key was pressed
-// 	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
-//     {
-//         //Adjust the velocity
-//         switch( e.key.keysym.sym )
-//         {
-//             case SDLK_w: mVelY -= PLAYER2_VEL; break;
-//             case SDLK_s: mVelY += PLAYER2_VEL; break;
-//             case SDLK_a: mVelX -= PLAYER2_VEL; break;
-//             case SDLK_d: mVelX += PLAYER2_VEL; break;
-//         }
-//     }
-//     //If a key was released
-//     else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
-//     {
-//         //Adjust the velocity
-//         switch( e.key.keysym.sym )
-//         {
-//             case SDLK_w: mVelY += PLAYER2_VEL; break;
-//             case SDLK_s: mVelY -= PLAYER2_VEL; break;
-//             case SDLK_a: mVelX += PLAYER2_VEL; break;
-//             case SDLK_d: mVelX -= PLAYER2_VEL; break;
-//         }
-//     }
-// }
 
 void Player1::move(std::vector<SDL_Rect> wall_vec )
 {
@@ -923,33 +896,6 @@ void Player1::move(std::vector<SDL_Rect> wall_vec )
 		mCollider.y = mPosY;
     }
 }	
-
-// void Player2::move(std::vector<SDL_Rect>& wall_vec )
-// {
-// 	//Move the player2 left or right
-// 	mPosX += mVelX;
-// 	mCollider.x = mPosX;
-
-// 	//If the player2 went too far to the left or right
-// 	if( ( mPosX < 0 ) || ( mPosX + PLAYER2_WIDTH > SCREEN_WIDTH ) || checkCollision( mCollider, wall_vec ))
-// 	{
-// 		//Move back
-// 		mPosX -= mVelX;
-// 		mCollider.x = mPosX;
-// 	}
-
-// 	//Move the player2 up or down
-// 	mPosY += mVelY;
-// 	mCollider.y = mPosY;
-
-// 	//If the player2 went too far up or down
-// 	if( ( mPosY < 0 ) || ( mPosY + PLAYER2_HEIGHT > SCREEN_HEIGHT ) || checkCollision( mCollider, wall_vec ))
-// 	{
-// 		//Move back
-// 		mPosY -= mVelY;
-// 		mCollider.y = mPosY;
-// 	}
-// }
 
 void Player1::render()
 {
@@ -1383,12 +1329,6 @@ SDL_Rect wall_form( int a,int b,int c,int d )
 	return wall;
 }
 
-
-// std::vector<std::vector<int>> Player1::get_health_incr_areas()
-// {
-// 	std::vector<std::vector<int>> vec(0);
-// 	return vec;
-// }
 std::vector<SDL_Rect> Player1::get_walls(){
 	if(mMap==1){
 		//St the wall
@@ -1683,8 +1623,7 @@ int main( int argc, char* args[] )
 
 			//The player1 that will be moving around on the screen
 			Player1 player1;
-			Player2 player2;
-			// Player2 player2;			
+			Player2 player2;		
 
 			//While application is running
 			serversetup();
@@ -1905,30 +1844,30 @@ int main( int argc, char* args[] )
 							
 						}
 				}
-				// else if(player2.getwinAt() == true)
-				// {
-				// 	gloseTexture.render(gRenderer, 0, 0 );
-				// }
-				
-				if (player1.getMap()!=0 && player1.getMap()!=16)
+				if(player2.getwinAt() == true)
+				{
+					gloseTexture.render(gRenderer, 0, 0 );
+				}
+
+				if (player2.getwinAt() == false && player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					player1.render();
 				}
 
-				if (player1.getMap()==player2.getMap())
+				if (player2.getwinAt() == false && player1.getMap()==player2.getMap() && player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					gPlayer2Texture.render(gRenderer, player2.getXcord(), player2.getYcord() );					
 				}
-				int a = SDL_RenderFillRect(gRenderer,&TextRect1);
-				// std::cout<<player1.PLAYER1_VEL<<std::endl;
+				
 				std::string str1= "[H1 = "+std::to_string(player1.getHealth())+"] "+"[H2 = "+std::to_string(player2.getHealth())+"] \n"+
 				"[E1 = "+std::to_string(player1.getEnjoy())+"] "+"[E2 = "+std::to_string(player2.getEnjoy())+"] \n"+
 				"[A1 = "+std::to_string(player1.getAcad())+"] "+"[A2 = "+std::to_string(player2.getAcad())+"] \n"+
 				"[M1 = "+std::to_string(player1.getMoney())+"]"+"[M2= "+std::to_string(player2.getMoney())+"]";
 				char* c1 = const_cast<char*>(str1.c_str());
 				// player2.render(gRenderer,);
-				if (player1.getMap()!=0 && player1.getMap()!=16)
+				if (player2.getwinAt() == false && player1.getMap()!=0 && player1.getMap()!=16)
 				{
+					int a = SDL_RenderFillRect(gRenderer,&TextRect1);
 					rect_text1(c1,0,537);
 				}
 				SDL_SetRenderDrawColor( gRenderer, 51,0,102, 255 );	
@@ -1943,9 +1882,13 @@ int main( int argc, char* args[] )
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
-				
-				
-				std::string temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney())+" ";
+				std::string temp;
+				if(player1.getwinAt() == true){
+					temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney()) +" "+ "1" + " ";
+				}
+				else{
+					temp = std::to_string(player1.getMap()) + " " + std::to_string(player1.getXcord()) + " " + std::to_string(player1.getYcord()) + " " + std::to_string(player1.getHealth()) + " " + std::to_string(player1.getEnjoy()) + " " + std::to_string(player1.getAcad())+" "+std::to_string(player1.getMoney()) +" "+ "0" + " ";
+				}
 				char* c = const_cast<char*>(temp.c_str());
 				serversendmessage(c);
 				mybuff = serverreadbuffer();	
@@ -1959,3 +1902,4 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
+
