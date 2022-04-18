@@ -1,4 +1,4 @@
-# COP Assignment - 2 - A 2-player maze game
+# COP290 Task - 2 - A 2-player maze game
 
 ## Authors
 
