@@ -1740,7 +1740,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 6)
 				{
 					gminimartTexture.render(gRenderer, 0, 0 );
-					if(player1.getMoney() >= 0){
+					if(player1.getMoney() > 0){
 					player1.update_money(-0.1);
 					player1.update_health(0.01);}
 				}
@@ -1753,7 +1753,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 8)
 				{
 					gdelhi16Texture.render(gRenderer, 0, 0 );
-					if(player1.getMoney() >= 0){
+					if(player1.getMoney() > 0){
 					player1.update_health(0.02);
 					player1.update_money(-0.1);}
 				}
@@ -1794,7 +1794,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 10)
 				{
 					gamulTexture.render(gRenderer, 0, 0 );
-					if(player1.getMoney() >= 0){player1.update_health(0.02);
+					if(player1.getMoney() > 0){player1.update_health(0.02);
 					player1.update_enjoy(0.01);
 					player1.update_money(-0.1);}
 				}
