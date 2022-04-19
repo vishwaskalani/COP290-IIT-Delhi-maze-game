@@ -37,7 +37,7 @@ The github repository is divided into various directories and files namely -
 5. **audioResources** - Contains all the `.wav` files needed for the sound effects of the game.
 6. **caviar.ttf** - The file containing the font that is used to display the player attributes on the screen.
 7. **README.md** - The current file containing all project description.
-8. **RULES.pdf** - The file containing the rules of our game which a player is advised to read in order to play the game.
+8. **TOUR-de-la-IIT.pdf** - The file containing the rules of our game which a player is advised to read in order to play the game.
 9. **status.txt** - Contains the status of our game.
 
 ---
