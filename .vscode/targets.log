@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Apr 19 03:53:58 2022
+# Make data base, printed on Tue Apr 19 05:32:32 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-fa749f6a-68f7-46cd-a968-b8271e233213.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-b65af685-3a54-41f3-8e11-eafe11fbcddb.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -81,7 +81,7 @@ PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
 WT_SESSION = fc23a39d-bf1a-4582-b0e9-1e48f4a44e3e
 # makefile (from 'Makefile', line 12)
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -181,9 +181,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 16 files, no impossibilities.
+# . (device 2080, inode 55540): 19 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -194,7 +194,7 @@ WSL_DISTRO_NAME = Ubuntu
 # Not a target:
 testfile-server.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-19 02:48:09.121890665
+#  Last modified 2022-04-19 05:31:58.071816022
 #  File has been updated.
 #  Successfully updated.
 
@@ -235,7 +235,7 @@ all: testfile-server.cpp
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-19 03:32:20.971870527
+#  Last modified 2022-04-19 05:31:29.511816239
 #  File has been updated.
 #  Successfully updated.
 
@@ -245,27 +245,20 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 22):
-	rm -f *.out
-
 # files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/19=0%
+# Load=5/1024=0%, Rehash=0, Collisions=0/18=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 219 B / avg = 9 B
-# current buf: size = 8162 B / used = 219 B / count = 22 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 252 B / avg = 10 B
+# current buf: size = 8162 B / used = 252 B / count = 24 / avg = 10 B
 
-# strcache performance: lookups = 31 / hit rate = 29%
+# strcache performance: lookups = 32 / hit rate = 25%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/31=3%
-# Finished Make data base on Tue Apr 19 03:53:58 2022
+# Load=24/8192=0%, Rehash=0, Collisions=1/32=3%
+# Finished Make data base on Tue Apr 19 05:32:32 2022
 
  
