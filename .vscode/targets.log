@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Apr 19 07:00:34 2022
+# Make data base, printed on Tue Apr 19 07:23:11 2022
 
 # Variables
 
@@ -36,14 +36,16 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
 _ = /mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin/code
-# makefile
-MAKEFILE_LIST := 
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
 XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
 VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 2)
+OBJS = testfile-server.cpp
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -57,7 +59,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-bfe85ea6-49a9-458e-94af-ce47db53e3fa.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-78921451-6f03-480c-a026-ad9e83a2afb8.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -78,6 +80,8 @@ WSL_INTEROP = /run/WSL/8_interop
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
 WT_SESSION = fc23a39d-bf1a-4582-b0e9-1e48f4a44e3e
+# makefile (from 'Makefile', line 12)
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -87,7 +91,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 LOGNAME = ishaan
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -100,16 +104,20 @@ PLATFORMIO_PATH = /home/ishaan/.platformio/python3/bin:/home/ishaan/.vscode-serv
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
+# makefile (from 'Makefile', line 9)
+COMPILER_FLAGS = -w
 # environment
 PATH = /home/ishaan/.vscode-server/bin/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/home/ishaan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/SMLNJ/bin/:/mnt/c/Program Files/MATLAB/R2021b/runtime/win64:/mnt/c/Program Files/MATLAB/R2021b/bin:/mnt/c/Program Files/swipl/bin:/mnt/c/Users/ishaa/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ishaa/anaconda/bin:/mnt/c/Users/ishaa/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Users/ishaa/AppData/Local/Programs/MiKTeX/miktex/bin/x64/:/mnt/c/Program Files (x86)/HP/Common/HPDestPlgIn/:/mnt/c/Users/ishaa/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/ishaa/GitHubDesktop/bin:/mnt/c/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin:/mnt/c/Program Files/Eclipse Foundation/jdk-8.0.302.8-hotspot/bin:/mnt/c/Users/ishaa/AppData/Local/GitHubDesktop/bin:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files (x86)/SMLNJ/bin/.run:/snap/bin
 # environment
 SHLVL = 1
+# makefile (from 'Makefile', line 5)
+CC = g++
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = ishaan
 # makefile
-.DEFAULT_GOAL := 
+.DEFAULT_GOAL := all
 # environment
 NAME = Code
 # automatic
@@ -152,6 +160,8 @@ SUFFIXES :=
 WAYLAND_DISPLAY = wayland-0
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# makefile (from 'Makefile', line 15)
+OBJ_NAME = testfile.out
 # default
 .RECIPEPREFIX := 
 # environment
@@ -163,7 +173,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=5/98=5%
+# Load=81/1024=8%, Rehash=0, Collisions=8/115=7%
 
 # Pattern-specific Variable Values
 
@@ -171,9 +181,9 @@ WSL_DISTRO_NAME = Ubuntu
 
 # Directories
 
-# . (device 2080, inode 55540): 14 files, no impossibilities.
+# . (device 2080, inode 55540): 19 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -182,25 +192,52 @@ WSL_DISTRO_NAME = Ubuntu
 # Files
 
 # Not a target:
-all:
-#  Command line target.
+testfile-server.cpp:
 #  Implicit rule search has been done.
+#  Last modified 2022-04-19 07:22:00.142404191
+#  File has been updated.
+#  Successfully updated.
+
+all: testfile-server.cpp
+#  Command line target.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
 #  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := testfile-server.cpp
+# automatic
+# | := 
+# automatic
+# < := testfile-server.cpp
+# automatic
+# ^ := testfile-server.cpp
+# automatic
+# ? := testfile-server.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/16=12%
+#  recipe to execute (from 'Makefile', line 19):
+	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) server.cpp classfiles/player2.cpp classfiles/ltexture.cpp
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  File does not exist.
+#  Last modified 2022-04-19 07:22:00.27240419
 #  File has been updated.
-#  Failed to be updated.
-
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
+#  Successfully updated.
 
 # Not a target:
 .DEFAULT:
@@ -208,29 +245,20 @@ makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-GNUmakefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
 # files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# Load=5/1024=0%, Rehash=0, Collisions=0/18=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 227 B / avg = 10 B
-# current buf: size = 8162 B / used = 227 B / count = 22 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 259 B / avg = 10 B
+# current buf: size = 8162 B / used = 259 B / count = 24 / avg = 10 B
 
-# strcache performance: lookups = 25 / hit rate = 12%
+# strcache performance: lookups = 32 / hit rate = 25%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/25=4%
-# Finished Make data base on Tue Apr 19 07:00:34 2022
+# Load=24/8192=0%, Rehash=0, Collisions=1/32=3%
+# Finished Make data base on Tue Apr 19 07:23:11 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-

@@ -1748,9 +1748,11 @@ int main( int argc, char* args[] )
 				}
 				else if(player1.getMap() == 6)
 				{
-					gminimartTexture.render(gRenderer, 0, 0 );
-					player1.update_money(-0.1);
-					player1.update_health(0.01);
+					if(player1.getMoney() >= 0){
+						gminimartTexture.render(gRenderer, 0, 0 );
+						player1.update_money(-0.1);
+						player1.update_health(0.01);
+					}
 				}
 				else if(player1.getMap() == 7)
 				{
@@ -1759,10 +1761,12 @@ int main( int argc, char* args[] )
 					player1.update_enjoy(-0.01);
 				}
 				else if(player1.getMap() == 8)
-				{
-					gdelhi16Texture.render(gRenderer, 0, 0 );
-					player1.update_health(0.02);
-					player1.update_money(-0.1);
+				{	
+					if(player1.getMoney() >= 0){
+						gdelhi16Texture.render(gRenderer, 0, 0 );
+						player1.update_health(0.02);
+						player1.update_money(-0.1);
+					}
 				}
 				else if(player1.getMap() == 2)
 				{
@@ -1801,9 +1805,11 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 10)
 				{
 					gamulTexture.render(gRenderer, 0, 0 );
-					player1.update_health(0.02);
-					player1.update_enjoy(0.01);
-					player1.update_money(-0.1);
+					if(player1.getMoney() >= 0){
+						player1.update_health(0.02);
+						player1.update_enjoy(0.01);
+						player1.update_money(-0.1);
+					}
 				}
 				else if(player1.getMap() == 11)
 				{
@@ -1829,7 +1835,7 @@ int main( int argc, char* args[] )
 				else if(player1.getMap() == 14)
 				{
 					ghospTexture.render(gRenderer, 0, 0 );
-					player1.update_health(0.01);
+					player1.update_health(0.05);
 				}
 				else if(player1.getMap() == 15)
 				{
