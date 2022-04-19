@@ -214,9 +214,9 @@ Player1::Player1()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 50.0;
-	enjoyment_index = 0.0;
-	acadStatus = 0.0;
+	health_index = 30.0;
+	enjoyment_index = 20.0;
+	acadStatus = 20.0;
 	money = 100.0;
 	Yulu = false;
 	winAt = false;
@@ -238,9 +238,9 @@ Player2::Player2()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 50.0;
-	enjoyment_index = 0.0;
-	acadStatus = 0.0;
+	health_index = 30.0;
+	enjoyment_index = 20.0;
+	acadStatus = 20.0;
 	money = 100.0;    //Initialize the velocity
 	mMap = 0;		
 	winAt = false;
@@ -825,7 +825,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( enjoyment_index>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=50) && ( enjoyment_index>=50) && ( health_index>=60) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -834,7 +834,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( enjoyment_index>=70) && ( health_index>=80) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=50) && ( enjoyment_index>=50) && ( health_index>=60) && ( sac_act==true) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -1741,7 +1741,7 @@ int main( int argc, char* args[] )
 				{
 					gminimartTexture.render(gRenderer, 0, 0 );
 					player1.update_money(-0.1);
-					player1.update_health(-0.01);
+					player1.update_health(0.01);
 				}
 				else if(player1.getMap() == 7)
 				{
@@ -1915,7 +1915,7 @@ int main( int argc, char* args[] )
 					player1.render();
 				}
 
-				if (player2.getwinAt() == false && player1.getMap()==player2.getMap())
+				if (player2.getwinAt() == false && player1.getMap()==player2.getMap() && player1.getMap()!=0 && player1.getMap()!=16)
 				{
 					gPlayer2Texture.render(gRenderer, player2.getXcord(), player2.getYcord() );					
 				}
