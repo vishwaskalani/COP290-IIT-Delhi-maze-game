@@ -58,14 +58,5 @@ void Player2::assign_param(char* mybuff){
 	ss>>word;
 	money = std::stoi(word);
 	ss>>word;
-<<<<<<< Updated upstream
 	if(std::stoi(word) == 1){winAt = true;} else {winAt = false;};
-=======
-	if(std::stoi(word)==1){
-		winAt = true;
-	}
-	else{
-		winAt = false;
-	}
->>>>>>> Stashed changes
 }

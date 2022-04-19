@@ -256,7 +256,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map1 to minimart
-		if ((mPosX <= 400) && (mPosY <= 520) && (mPosX>=300) && (mPosY>=400) && (mMap == 1)){
+		if ((mPosX <= 400) && (mPosY <= 520) && (mPosX>=300) && (mPosY>=400) && (money>0) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e:
 							Mix_PlayChannel( -1, gHigh, 0 ); 
@@ -278,7 +278,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map2 to DELHI16
-		if ((mPosX >=680) && (mPosX <= 790) && (mPosY<=100) && (mMap == 2)){
+		if ((mPosX >=680) && (mPosX <= 790) && (mPosY<=100) && (money>0) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e:
 							Mix_PlayChannel( -1, gHigh, 0 ); 
@@ -465,7 +465,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//map3 to amul
-		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=432) && (mPosY<=470) && (mMap == 3)){
+		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=432) && (mPosY<=470) && (money>0) &&(mMap == 3)){
 				switch( e.key.keysym.sym ){
 							case SDLK_e:
 							Mix_PlayChannel( -1, gHigh, 0 ); 
@@ -742,7 +742,7 @@ void Player1::handleEvent( SDL_Event& e )
 			}
 
 		//Map 4 to Yulu ride 
-		if ((mPosX >=940) && (mPosX <= 980) &&(mPosY <= 465) && (mPosY>=417) && (mMap == 4) && (Yulu == false)){
+		if ((mPosX >=940) && (mPosX <= 980) &&(mPosY <= 465) && (mPosY>=417) && (mMap == 4) && (money>0) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
 							case SDLK_r:
 							Mix_PlayChannel( -1, gScratch, 0 ); 
@@ -761,7 +761,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 4 to Yulu ride
-		if ((mPosX >=408) && (mPosX <= 450) &&(mPosY <= 367) && (mPosY>=300) && (mMap == 4) && (Yulu == false)){
+		if ((mPosX >=408) && (mPosX <= 450) &&(mPosY <= 367) && (mPosY>=300) && (mMap == 4) && (money>0) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
 							case SDLK_r:
 							Mix_PlayChannel( -1, gScratch, 0 ); 
@@ -780,7 +780,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 1 to Yulu ride
-		if ((mPosX >=14) && (mPosX <= 60) &&(mPosY <= 486) && (mPosY>=414) && (mMap == 1) && (Yulu == false)){
+		if ((mPosX >=14) && (mPosX <= 60) &&(mPosY <= 486) && (mPosY>=414) && (mMap == 1) && (money>0) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
 							case SDLK_r:
 							Mix_PlayChannel( -1, gScratch, 0 ); 
@@ -799,7 +799,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to Yulu ride
-		if ((mPosX >=420) && (mPosX <= 502) &&(mPosY <= 405) && (mPosY>=367) && (mMap == 5) && (Yulu == false)){
+		if ((mPosX >=420) && (mPosX <= 502) &&(mPosY <= 405) && (mPosY>=367) && (mMap == 5) && (money>0) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
 							case SDLK_r:
 							Mix_PlayChannel( -1, gScratch, 0 ); 
