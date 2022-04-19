@@ -34,9 +34,11 @@ The github repository is divided into various directories and files namely -
 2. **client-files** - Contains the files that the client should run on his computer in order to run the game.
 3. **server-files** - Contains the files that the server should run on his computer in order to run the game.
 4. **Resources** - Contains all the `.png` files needed to be displayed in the game.
-5.  **caviar.ttf** - The file containing the font that is used to display the player attributes on the screen.
-6. **README.md** - The current file containing all project description.
-7. **RULES.pdf** - The file containing the rules of our game which a player is advised to read in order to play the game.
+5. **audioResources** - Contains all the `.wav` files needed for the sound effects of the game.
+6. **caviar.ttf** - The file containing the font that is used to display the player attributes on the screen.
+7. **README.md** - The current file containing all project description.
+8. **RULES.pdf** - The file containing the rules of our game which a player is advised to read in order to play the game.
+9. **status.txt** - Contains the status of our game.
 
 ---
 
@@ -64,7 +66,8 @@ The github repository is divided into various directories and files namely -
 - The restricted motion of the player has been ensured by checking the collision of the player with certain sections of map where it can't go. The collisions have been checked through rectangular boxes. The players have been themselves imagined as rectangular boxes to check the collisions.
 - For entering certain buildings or changing the maps, the texture rendered in the background has been switched to the maps of the various building that have been drawn.
 - The attributes of the players vary with the places they enter or things they do for instance the health of the player continuously decreases. The attributes have been mentioned in the player class and have been modified by appropriate functions.
-  
+- The appropriate sound effects have also been added at various events like entering a location, exiting the location and taking a 
+Yulu.
 
 ---
 

@@ -1741,7 +1741,7 @@ int main( int argc, char* args[] )
 				{
 					gminimartTexture.render(gRenderer, 0, 0 );
 					player1.update_money(-0.1);
-					player1.update_health(-0.01);
+					player1.update_health(0.01);
 				}
 				else if(player1.getMap() == 7)
 				{

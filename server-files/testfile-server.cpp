@@ -4,8 +4,9 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, and strings
 // #include "server.h"
 #include <SDL2/SDL.h>
-#include<SDL2/SDL_image.h>
-#include<SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <stdio.h>
 #include <string>
 #include <bits/stdc++.h>
@@ -17,6 +18,15 @@ and may not be redistributed without written permission.*/
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 600;
 char* mybuff;
+
+//The music that will be played
+Mix_Music *gMusic = NULL;
+
+//The sound effects that will be used
+Mix_Chunk *gScratch = NULL;
+Mix_Chunk *gHigh = NULL;
+Mix_Chunk *gMedium = NULL;
+Mix_Chunk *gLow = NULL;
 
 //The application time based timer
 class LTimer
@@ -172,51 +182,14 @@ SDL_Rect TextRect1; // Text rectangle area with the position for the texture tex
 SDL_Rect TextRect2; // Text rectangle area with the position for the texture text.
 SDL_Rect TextRect3; // Text rectangle area with the position for the texture text.
 
-// #if defined(SDL_TTF_MAJOR_VERSION)
-// bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
-// {
-// 	//Get rid of preexisting texture
-// 	free();
-
-// 	//Render text surface
-// 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
-// 	if( textSurface != NULL )
-// 	{
-// 		//Create texture from surface pixels
-//         mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
-// 		if( mTexture == NULL )
-// 		{
-// 			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
-// 		}
-// 		else
-// 		{
-// 			//Get image dimensions
-// 			mWidth = textSurface->w;
-// 			mHeight = textSurface->h;
-// 		}
-
-// 		//Get rid of old surface
-// 		SDL_FreeSurface( textSurface );
-// 	}
-// 	else
-// 	{
-// 		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
-// 	}
-
-	
-// 	//Return success
-// 	return mTexture != NULL;
-// }
-// #endif
-
 Player1::Player1()
 {
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 50.0;
-	enjoyment_index = 0.0;
-	acadStatus = 0.0;
+	health_index = 30.0;
+	enjoyment_index = 20.0;
+	acadStatus = 20.0;
 	money = 100.0;
 	Yulu = false;
 	winAt = false;
@@ -238,9 +211,9 @@ Player2::Player2()
     //Initialize the offsets
     mPosX = 44;
     mPosY = 63;
-	health_index = 50.0;
-	enjoyment_index = 0.0;
-	acadStatus = 0.0;
+	health_index = 30.0;
+	enjoyment_index = 20.0;
+	acadStatus = 20.0;
 	money = 100.0;    //Initialize the velocity
 	mMap = 0;		
 	winAt = false;
@@ -248,13 +221,6 @@ Player2::Player2()
 
 void Player1::handleEvent( SDL_Event& e )
 {
-	// if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && (mPosX <= 400) && (mPosY <= 500) && (mPosX>=300) && (mPosY>=400))
-	// {
-	// 	switch( e.key.keysym.sym ){
-	// 		case SDLK_e: mMap = 2; break;
-	// 	}
-	// }
-
 	//If a key was pressed
 	if( e.type == SDL_KEYDOWN)
     {
@@ -281,7 +247,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//hospital to out
 		if ((mMap == 14) && (mPosX <= 812) && (mPosX>=731) && (mPosY>=490)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 3;
 							mPosX = 648; 
 							mPosY = 11; 
@@ -291,7 +258,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map1 to minimart
 		if ((mPosX <= 400) && (mPosY <= 520) && (mPosX>=300) && (mPosY>=400) && (mMap == 1)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 6;
 							mPosX = 950; 
 							mPosY = 400; 
@@ -301,7 +269,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//minimart to map1
 		if ((mPosX >=900) && (mPosY <= 500) && (mPosY>=300) && (mMap == 6)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 1;
 							mPosX = 359; 
 							mPosY = 463; 
@@ -311,7 +280,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map2 to DELHI16
 		if ((mPosX >=680) && (mPosX <= 790) && (mPosY<=100) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 8;
 							mPosX = 754; 
 							mPosY = 572; 
@@ -321,7 +291,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//Delhi 16 to map 2
 		if ((mPosX >=718) && (mPosX <= 790) && (mPosY>=500) && (mMap == 8)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 2;
 							mPosX = 720; 
 							mPosY = 40; 
@@ -331,7 +302,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map2 to SAC
 		if ((mPosX >=525) && (mPosX <= 590) && (mPosY<=370) && (mPosY>=300) && (mMap == 2)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 21;
 							mPosX = 857; 
 							mPosY = 580; 
@@ -359,7 +331,8 @@ void Player1::handleEvent( SDL_Event& e )
 							mMap = 9;
 							sac_act = true;
 							break;
-							case SDLK_r: 
+							case SDLK_r:
+														Mix_PlayChannel( -1, gScratch, 0 ); 
 							mMap = 21;
 							break;
 							case SDLK_s: 
@@ -376,7 +349,8 @@ void Player1::handleEvent( SDL_Event& e )
 							case SDLK_t: 
 							mMap = 22;
 							break;
-							case SDLK_r: 
+							case SDLK_r:
+														Mix_PlayChannel( -1, gScratch, 0 ); 
 							mMap = 21;
 							break;
 						}
@@ -384,7 +358,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//SAC to map 2
 		if ((mPosX >=800) && (mPosY>=500) && (mMap == 9)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 2;
 							mPosX = 540; 
 							mPosY = 327; 
@@ -394,7 +369,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map3 to main ground
 		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=112) && (mPosY<=162) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 18;
 							mPosX = 920; 
 							mPosY = 560; 
@@ -428,7 +404,8 @@ void Player1::handleEvent( SDL_Event& e )
 							case SDLK_c: 
 							mMap = 20;
 							break;
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 18;
 							break;
 							// case SDLK_LEFT: 
@@ -442,7 +419,8 @@ void Player1::handleEvent( SDL_Event& e )
 							mMap = 11;
 							hours = true;
 							break;
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 18;
 							break;
 							case SDLK_s: 
@@ -456,7 +434,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//main ground to map3
 		if ((mPosX >=900) && (mPosY>=550) && (mMap == 11)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 3;
 							mPosX = 633; 
 							mPosY = 138; 
@@ -466,7 +445,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map3 to atheletic ground
 		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=387) && (mPosY<=420) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 12;
 							mPosX = 920; 
 							mPosY = 560; 
@@ -476,7 +456,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//atheletic ground to map3 
 		if ((mPosX >=900) && (mPosY>=550) && (mMap == 12)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 3;
 							mPosX = 633; 
 							mPosY = 407; 
@@ -486,7 +467,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map3 to amul
 		if ((mPosX >=588) && (mPosX<=664) && (mPosY>=432) && (mPosY<=470) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 10;
 							mPosX = 511; 
 							mPosY = 563; 
@@ -496,7 +478,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//amul to map3 
 		if ((mPosX >=462) && (mPosY>=520) && (mPosX<=567) && (mMap == 10)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 3;
 							mPosX = 640; 
 							mPosY = 451; 
@@ -506,7 +489,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map3 to library
 		if ((mPosX >=620) && (mPosX<=700) && (mPosY>=528) && (mPosY<=573) && (mMap == 3)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 7;
 							mPosX = 434; 
 							mPosY = 570; 
@@ -516,7 +500,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//library to map3 
 		if ((mPosX >=392) && (mPosY>=520) && (mPosX<=490) && (mMap == 7)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 3;
 							mPosX = 656; 
 							mPosY = 554; 
@@ -526,7 +511,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map4 to bank
 		if ((mPosX >=675) && (mPosX<=710) && (mPosY>=150) && (mPosY<=216) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 15;
 							mPosX = 750; 
 							mPosY = 578; 
@@ -536,7 +522,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//bank to map4 
 		if ((mPosX >=700) && (mPosY>=448) && (mPosX<=826) && (mMap == 15)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 4;
 							mPosX = 680; 
 							mPosY = 166; 
@@ -546,7 +533,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//map4 to lhc
 		if ((mPosX >=572) && (mPosX<=612) && (mPosY>=173) && (mPosY<=244) && (mMap == 4)){
 				switch( e.key.keysym.sym ){
-							case SDLK_e: 
+							case SDLK_e:
+							Mix_PlayChannel( -1, gHigh, 0 ); 
 							mMap = 13;
 							mPosX = 930; 
 							mPosY = 578; 
@@ -556,7 +544,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//lhc to map4 
 		if ((mPosX >=850) && (mPosY>=515)  && (mMap == 13)){
 				switch( e.key.keysym.sym ){
-							case SDLK_o: 
+							case SDLK_o:
+							Mix_PlayChannel( -1, gMedium, 0 ); 
 							mMap = 4;
 							mPosX = 580; 
 							mPosY = 224; 
@@ -755,7 +744,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//Map 4 to Yulu ride 
 		if ((mPosX >=940) && (mPosX <= 980) &&(mPosY <= 465) && (mPosY>=417) && (mMap == 4) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
-							case SDLK_r: 
+							case SDLK_r:
+							Mix_PlayChannel( -1, gScratch, 0 ); 
 							Yulu = true;
 							PLAYER1_VEL = 8;
 							break;
@@ -773,7 +763,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//Map 4 to Yulu ride
 		if ((mPosX >=408) && (mPosX <= 450) &&(mPosY <= 367) && (mPosY>=300) && (mMap == 4) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
-							case SDLK_r: 
+							case SDLK_r:
+							Mix_PlayChannel( -1, gScratch, 0 ); 
 							Yulu = true;
 							PLAYER1_VEL = 8;
 							break; 
@@ -791,7 +782,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//Map 1 to Yulu ride
 		if ((mPosX >=14) && (mPosX <= 60) &&(mPosY <= 486) && (mPosY>=414) && (mMap == 1) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
-							case SDLK_r: 
+							case SDLK_r:
+							Mix_PlayChannel( -1, gScratch, 0 ); 
 							Yulu = true;
 							PLAYER1_VEL = 8;
 							break; 
@@ -809,7 +801,8 @@ void Player1::handleEvent( SDL_Event& e )
 		//Map 5 to Yulu ride
 		if ((mPosX >=420) && (mPosX <= 502) &&(mPosY <= 405) && (mPosY>=367) && (mMap == 5) && (Yulu == false)){
 				switch( e.key.keysym.sym ){
-							case SDLK_r: 
+							case SDLK_r:
+							Mix_PlayChannel( -1, gScratch, 0 ); 
 							Yulu = true;
 							PLAYER1_VEL = 8;
 							break; 
@@ -825,7 +818,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && (enjoyment_index>=70) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=60) && ( sac_act==true) && (enjoyment_index>=50) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -834,7 +827,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=70) && ( health_index>=80) && ( sac_act==true) && (enjoyment_index>=70) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=60) && ( sac_act==true) && (enjoyment_index>=50) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -937,22 +930,11 @@ bool Player1::getwinAt()
 {
 	return winAt;
 }
-// int Player1::getVel()
-// {
-// 	return PLAYER1_VEL;
-// }
 
 void Player1::update_health(float amount){
 	health_index+=amount;
 	}
-// void Player1::decrease_health(){
-// 	if(mMap!=14){
-// 		health_index-=0.01;
-// 		}	
-// 	else{
-// 		health_index+=0.01;
-// 		}
-// 	}
+
 void Player1::update_acad(float amount){
 	if(amount<0){
 		if(acadStatus>0){
@@ -1007,7 +989,7 @@ bool init()
 	bool success = true;
 
 	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
 	{
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
@@ -1048,6 +1030,13 @@ bool init()
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
+
+								 //Initialize SDL_mixer
+				if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+				{
+					printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+					success = false;
+				}
 			}
 		}
 	}
@@ -1059,6 +1048,43 @@ bool loadMedia()
 {
 	//Loading success flag
 	bool success = true;
+
+	//Load music
+	gMusic = Mix_LoadMUS( "audioResources/beat2.wav" );
+	if( gMusic == NULL )
+	{
+		printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+		success = false;
+	}
+	
+	//Load sound effects
+	gScratch = Mix_LoadWAV( "audioResources/scratch.wav" );
+	if( gScratch == NULL )
+	{
+		printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		success = false;
+	}
+	
+	gHigh = Mix_LoadWAV( "audioResources/high.wav" );
+	if( gHigh == NULL )
+	{
+		printf( "Failed to load high sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		success = false;
+	}
+
+	gMedium = Mix_LoadWAV( "audioResources/medium.wav" );
+	if( gMedium == NULL )
+	{
+		printf( "Failed to load medium sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		success = false;
+	}
+
+	gLow = Mix_LoadWAV( "audioResources/low.wav" );
+	if( gLow == NULL )
+	{
+		printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		success = false;
+	}	
 
 	//Load player1 texture
 	if( !gPlayer1Texture.loadFromFile(gRenderer, "Resources/parti1.png" ) )
@@ -1224,6 +1250,20 @@ void close()
 	gPlayer1Texture.free();
 	gPlayer2Texture.free();
 
+	//Free the sound effects
+	Mix_FreeChunk( gScratch );
+	Mix_FreeChunk( gHigh );
+	Mix_FreeChunk( gMedium );
+	Mix_FreeChunk( gLow );
+	gScratch = NULL;
+	gHigh = NULL;
+	gMedium = NULL;
+	gLow = NULL;
+
+	//Free the music
+	Mix_FreeMusic( gMusic );
+	gMusic = NULL;
+
 	// gPlayer2Texture.free();
 	gmap1Texture.free();
 	gminimartTexture.free();
@@ -1260,6 +1300,7 @@ void close()
 	gRenderer = NULL;
 
 	//Quit SDL subsystems
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -1595,8 +1636,6 @@ void rect_text2(const char* Message,int pos1,int pos2){
     TTF_Quit();
 	SDL_RenderCopy(gRenderer, TextTexture, NULL, &TextRect2); // Add text to render queue.
     SDL_RenderPresent(gRenderer); // Render everything that's on the queue.
-	// SDL_RenderClear( gRenderer );
-
 }
 
 int main( int argc, char* args[] )
@@ -1637,10 +1676,41 @@ int main( int argc, char* args[] )
 					{
 						quit = true;
 					}
+					else if( e.type == SDL_KEYDOWN ){
+						switch (e.key.keysym.sym)
+						{
+							case SDLK_p:
+							//If there is no music playing
+							if( Mix_PlayingMusic() == 0 )
+							{
+								//Play the music
+								Mix_PlayMusic( gMusic, -1 );
+							}
+							//If music is being played
+							else
+							{
+								//If the music is paused
+								if( Mix_PausedMusic() == 1 )
+								{
+									//Resume the music
+									Mix_ResumeMusic();
+								}
+								//If the music is playing
+								else
+								{
+									//Pause the music
+									Mix_PauseMusic();
+								}
+							}
+							break;
+						
+						default:
+							break;
+						}
+					}
 
 					//Handle input for the player1
 					player1.handleEvent( e );
-					// player2.handleEvent( e );
 				}
 
 				if(player1.getHealth()>0){
@@ -1680,7 +1750,7 @@ int main( int argc, char* args[] )
 				{
 					gminimartTexture.render(gRenderer, 0, 0 );
 					player1.update_money(-0.1);
-					player1.update_health(-0.01);
+					player1.update_health(0.01);
 				}
 				else if(player1.getMap() == 7)
 				{
@@ -1871,14 +1941,6 @@ int main( int argc, char* args[] )
 					rect_text1(c1,0,537);
 				}
 				SDL_SetRenderDrawColor( gRenderer, 51,0,102, 255 );	
-				// int b = SDL_RenderFillRect(gRenderer,&TextRect2);
-				// std::string str2= "[Health_index = "+std::to_string(player2.getHealth())+"] "+"[Enjoyment_index = "+std::to_string(player2.getEnjoy())+"] "+"[AcadStatus = "+std::to_string(player2.getAcad())+"] \n"+"[Money = "+std::to_string(player2.getMoney())+"]";
-				// char* c2 = const_cast<char*>(str2.c_str());
-				// // player2.render(gRenderer,);
-				// if (player2.getMap()!=0)
-				// {
-				// 	rect_text2(c2,0,200);
-				// }
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );

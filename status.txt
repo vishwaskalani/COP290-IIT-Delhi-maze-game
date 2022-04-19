@@ -1,0 +1,9 @@
+Everything is working as we expect it to be except for some lag which is caused due to the continous large transfer of data between 
+the client and the server.
+
+- The sound effects are working correctly
+- The socketing is working correctly
+- The I/O is working fine
+- Player movement is precise and crisp
+- Yulu has also been implemented
+- Objective of the game has also been implemented correctly
