@@ -818,7 +818,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=60) && ( sac_act==true) && (enjoyment_index>=50) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=358) && (mPosX <= 412) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=45) && ( sac_act==true) && (enjoyment_index>=35) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
@@ -827,7 +827,7 @@ void Player1::handleEvent( SDL_Event& e )
 						}
 			}
 		//Map 5 to exit win
-		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=60) && ( sac_act==true) && (enjoyment_index>=50) && ( hours==true) && ( money>=100) && (mMap == 5)){
+		if ((mPosX >=700) && (mPosX <= 746) && (mPosY>=570) && ( acadStatus>=50) && ( health_index>=45) && ( sac_act==true) && (enjoyment_index>=35) && ( hours==true) && ( money>=100) && (mMap == 5)){
 				switch( e.key.keysym.sym ){
 							case SDLK_w: 
 							winAt = true;
